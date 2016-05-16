@@ -1,0 +1,12 @@
+image: digitallyseamless/nodejs-bower-grunt
+
+pages:
+  script:
+  - npm install
+  - bower install
+  - grunt
+  artifacts:
+    paths:
+    - public
+  only:
+  - master

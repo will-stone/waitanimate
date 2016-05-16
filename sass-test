@@ -1,0 +1,19 @@
+$kfanim: (
+  0: ("transform": "scale(1)"),
+  50: ("transform": "scale(1)"),
+  100: ("transform": "scale(1)")
+);
+
+@mixin wa($name, $waitTime:1) {
+  @keyframes name {
+    @each $percent, $trans in $kfanim {
+      #{$percent/$waitTime}% {
+        @each $k, $v in $trans {
+          #{$k}: #{$v}
+        }
+      }
+    }
+  }
+}
+
+@include wa(name);
