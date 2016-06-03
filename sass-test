@@ -14,28 +14,41 @@ $kfanim: (
 );
 
 @mixin wa($name, $waitTime:1) {
+  $counter: 1;
+  $length: length($kfanim);
   @keyframes name {
-    @each $percent, $prop in $kfanim {
+    @each $frame, $prop in $kfanim {
 
-      $i: index($kfanim, $percent);
-
-
-      @if $waitTime > 1 {
-        //#{length($kfanim)}% {
-        #{$i}% {
-          transform: scale(1);
-          background-color: red;
-        }
+      test-#{$counter} {
+        color: white;
       }
 
-      #{$percent/$waitTime}% {
+      // @if $waitTime > 1 {
+      //   #{$i}% {
+      //     transform: scale(1);
+      //     background-color: red;
+      //   }
+      // }
+
+      $percent: 0;
+
+      @if $waitTime == 0 {
+        $percent: $frame;
+      } @else {
+        $percent: $frame/$waitTime;
+      }
+
+
+      #{$percent}% {
         @each $k, $v in $prop {
           #{$k}: #{$v}
         }
       }
+
+      $counter: $counter+1;
     }
 
   }
 }
 
-@include wa(name, 2);
+@include wa(name, 0.5);
