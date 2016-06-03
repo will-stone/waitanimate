@@ -1,19 +1,41 @@
 $kfanim: (
-  0: ("transform": "scale(1)"),
-  50: ("transform": "scale(1)"),
-  100: ("transform": "scale(1)")
+  0: (
+    "transform": "scale(1)",
+    "background-color": "blue"
+  ),
+  50: (
+    "transform": "scale(1)",
+    "background-color": "green"
+  ),
+  100: (
+    "transform": "scale(1)",
+    "background-color": "red"
+  )
 );
 
 @mixin wa($name, $waitTime:1) {
   @keyframes name {
-    @each $percent, $trans in $kfanim {
+    @each $percent, $prop in $kfanim {
+
+      $i: index($kfanim, $percent);
+
+
+      @if $waitTime > 1 {
+        //#{length($kfanim)}% {
+        #{$i}% {
+          transform: scale(1);
+          background-color: red;
+        }
+      }
+
       #{$percent/$waitTime}% {
-        @each $k, $v in $trans {
+        @each $k, $v in $prop {
           #{$k}: #{$v}
         }
       }
     }
+
   }
 }
 
-@include wa(name);
+@include wa(name, 2);
