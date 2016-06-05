@@ -39,9 +39,12 @@ body {
 
 a {
 	color: white;
-	text-decoration: underline;
+	text-decoration: none;
+	border-bottom: 1px dotted white;
 	&:hover {
-		color: $color2;
+		border-bottom: 1px solid white;
+		color: white;
+		text-decoration: none;
 	}
 }
 
