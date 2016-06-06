@@ -4,44 +4,34 @@ $kfanim: (
     "background-color": "blue"
   ),
   50: (
-    "transform": "scale(1)",
+    "transform": "scale(2)",
     "background-color": "green"
   ),
   100: (
-    "transform": "scale(1)",
+    "transform": "scale(3)",
     "background-color": "red"
   )
 );
 
-@mixin wa($name, $waitTime:1) {
+
+
+@mixin wa($name, $kf, $duration:1, $waitTime:1) {
   $counter: 1;
-  $length: length($kfanim);
+  $length: length($kf);
   @keyframes name {
-    @each $frame, $prop in $kfanim {
+    @each $frame, $prop in $kf {
 
-      test-#{$counter} {
-        color: white;
-      }
-
-      // @if $waitTime > 1 {
-      //   #{$i}% {
-      //     transform: scale(1);
-      //     background-color: red;
-      //   }
-      // }
-
-      $percent: 0;
-
-      @if $waitTime == 0 {
-        $percent: $frame;
-      } @else {
-        $percent: $frame/$waitTime;
-      }
-
-
-      #{$percent}% {
+      #{$frame * $duration / ($duration + $waitTime)}% {
         @each $k, $v in $prop {
           #{$k}: #{$v}
+        }
+      }
+
+      @if $counter == $length and $waitTime > 0 {
+        100% {
+          @each $k, $v in $prop {
+            #{$k}: #{$v}
+          }
         }
       }
 
@@ -51,4 +41,4 @@ $kfanim: (
   }
 }
 
-@include wa(name, 0.5);
+@include wa(name, $kfanim, 1, 1);
