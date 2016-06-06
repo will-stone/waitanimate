@@ -1,44 +1,49 @@
-$kfanim: (
-  0: (
-    "transform": "scale(1)",
-    "background-color": "blue"
-  ),
-  50: (
-    "transform": "scale(2)",
-    "background-color": "green"
-  ),
-  100: (
-    "transform": "scale(3)",
-    "background-color": "red"
-  )
-);
+@mixin waitAnimate($options: ()) {
 
-
-
-@mixin wa($name, $kf, $duration:1, $waitTime:1) {
+  $kf: map-get($options, keyframes);
+  $kfLength: length($kf);
+  $duration: map-get($options, duration);
+  $waitTime: map-get($options, waitTime);
   $counter: 1;
-  $length: length($kf);
-  @keyframes name {
-    @each $frame, $prop in $kf {
 
+  @keyframes #{map-get($options, animationName)} {
+    @each $frame, $prop in $kf {
       #{$frame * $duration / ($duration + $waitTime)}% {
         @each $k, $v in $prop {
           #{$k}: #{$v}
         }
       }
-
-      @if $counter == $length and $waitTime > 0 {
+      @if $counter == $kfLength and $waitTime > 0 {
         100% {
           @each $k, $v in $prop {
             #{$k}: #{$v}
           }
         }
       }
-
       $counter: $counter+1;
     }
-
   }
+
 }
 
-@include wa(name, $kfanim, 1, 1);
+@include waitAnimate(
+  (
+    animationName: animName,
+    keyframes: (
+      0: (
+        color: blue,
+        background-color: white
+      ),
+      50: (
+        transform: scale(2),
+        background-color: green
+      ),
+      100: (
+        transform: scale(3),
+        background-color: red
+      )
+    ),
+    duration: 1,
+    waitTime: 0
+  )
+);
