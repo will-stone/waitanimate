@@ -1,12 +1,19 @@
 @mixin waitAnimate($options: ()) {
 
+  $options: map-merge((
+    animationName: waitAnimate,
+    duration: 1,
+    waitTime: 0
+  ), $options);
+
+  $name: map-get($options, animationName);
   $kf: map-get($options, keyframes);
   $kfLength: length($kf);
   $duration: map-get($options, duration);
   $waitTime: map-get($options, waitTime);
   $counter: 1;
 
-  @keyframes #{map-get($options, animationName)} {
+  @keyframes #{$name} {
     @each $frame, $prop in $kf {
       #{$frame * $duration / ($duration + $waitTime)}% {
         @each $k, $v in $prop {
@@ -31,8 +38,8 @@
     animationName: animName,
     keyframes: (
       0: (
-        color: blue,
-        background-color: white
+        transform: scale(1),
+        background-color: blue
       ),
       50: (
         transform: scale(2),
@@ -44,6 +51,6 @@
       )
     ),
     duration: 1,
-    waitTime: 0
+    waitTime: 1
   )
 );
