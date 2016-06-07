@@ -3,7 +3,9 @@
   $options: map-merge((
     animationName: waitAnimate,
     duration: 1,
-    waitTime: 0
+    waitTime: 0,
+    timingFunction: linear,
+    iterationCount: infinite
   ), $options);
 
   $name: map-get($options, animationName);
@@ -11,15 +13,18 @@
   $kfLength: length($kf);
   $duration: map-get($options, duration);
   $waitTime: map-get($options, waitTime);
-  $counter: 1;
+  $timingFunction: map-get($options, timingFunction);
+  $iterationCount: map-get($options, iterationCount);
+  $counter: 1; // index of 'each'
 
-  @keyframes #{$name} {
+  @keyframes #{$name}-with-wait {
     @each $frame, $prop in $kf {
       #{$frame * $duration / ($duration + $waitTime)}% {
         @each $k, $v in $prop {
           #{$k}: #{$v}
         }
       }
+      // if last in loop and waitTime is not 0, add the last frame as 100% (this is what creates the pause)
       @if $counter == $kfLength and $waitTime > 0 {
         100% {
           @each $k, $v in $prop {
@@ -29,6 +34,10 @@
       }
       $counter: $counter+1;
     }
+  }
+
+  .#{$name} {
+    animation: #{$name}-with-wait #{$duration}s #{$timingFunction} #{$iterationCount};
   }
 
 }
@@ -50,7 +59,9 @@
         background-color: red
       )
     ),
-    duration: 1,
-    waitTime: 1
+    duration: 2,
+    waitTime: 1,
+    timingFunction: ease,
+    iterationCount: infinite
   )
 );
