@@ -212,8 +212,51 @@
 
 <h3 class="title-font text-center">Ok, so I understand that you don't want to release a bloated library, but why not just release a SASS mixin?</h3>
 <p>
-  That's coming :)
+  Sure...
 </p>
+<pre>@mixin waitAnimate($options: ()) {
+
+  $options: map-merge((
+    animationName: waitAnimate,
+    duration: 1,
+    waitTime: 0,
+    timingFunction: linear,
+    iterationCount: infinite
+  ), $options);
+
+  $name: map-get($options, animationName);
+  $kf: map-get($options, keyframes);
+  $kfLength: length($kf);
+  $duration: map-get($options, duration);
+  $waitTime: map-get($options, waitTime);
+  $timingFunction: map-get($options, timingFunction);
+  $iterationCount: map-get($options, iterationCount);
+  $counter: 1; // index of 'each'
+
+  @keyframes #{$name}-with-wait {
+    @each $frame, $prop in $kf {
+      #{$frame * $duration / ($duration + $waitTime)}% {
+        @each $k, $v in $prop {
+          #{$k}: #{$v}
+        }
+      }
+      // if last in loop and waitTime is not 0, add the last frame as 100% (this is what creates the pause)
+      @if $counter == $kfLength and $waitTime > 0 {
+        100% {
+          @each $k, $v in $prop {
+            #{$k}: #{$v}
+          }
+        }
+      }
+      $counter: $counter+1;
+    }
+  }
+
+  .#{$name} {
+    animation: #{$name}-with-wait #{$duration}s #{$timingFunction} #{$iterationCount};
+  }
+
+}</pre>
 
 <h3 class="title-font text-center">Show me sources? Code, where art thou? I want to help... maybe.</h3>
 <p>
