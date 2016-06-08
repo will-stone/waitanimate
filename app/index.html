@@ -32,6 +32,13 @@
     <meta name="msapplication-TileColor" content="#df3e39">
     <meta name="msapplication-config" content="images/browserconfig.xml?v=GvvwO0J8L">
     <meta name="theme-color" content="#df3e39">
+
+    <script>
+    // Frame Buster
+    if (top.location != self.location) {
+      top.location = self.location.href;
+    }
+    </script>
   </head>
   <body ng-app="waitanimateApp">
     <!--[if lte IE 8]>
