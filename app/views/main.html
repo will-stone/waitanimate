@@ -2,7 +2,7 @@
   <strong>{{alert.text}}</strong>
 </div>
 
-<div class="topAlert alert alert-info text-center">SCSS Mixin <a ng-click="scrollTo('mixin')">now available</a></div>
+<div class="topAlert alert alert-info text-center">SCSS Mixin <a ng-click="scrollTo('mixinTitle')">now available</a></div>
 
 
 <!-- <div class="col-xs-12 col-sm-12"> -->
@@ -211,13 +211,13 @@
   The Font Awesome Animation library is... well... awesome. Simply install with Bower then add the classes to your icons. Therefore, it might seem natural for <span class="title-font">WAIT! Animate</span> to come as a library too, allowing you to add a <em>wait</em> class to instantly achieve the desired pause duration. However, <span class="title-font">WAIT! Animate</span> re-calculates the keyframe percentages based on the desired wait time and duration of the animation. If we wanted to cover 0 to 30 seconds wait time for every animation, it would mean compiling 14 animations' keyframes for a 0 second wait, 1 second wait, 2 second wait.... and 30 second wait. Err... I make that 434 classes with 434 keyframes rules. That's not great if you only want to use the <em>Tada</em> animation with a 7 second wait: a lot of unused CSS being loaded by the browser. And what about if you wanted a 33 second wait? Besides, making the custom tool means you can add wait times to <em>any</em> animation.
 </p>
 
-<h3 class="title-font text-center" id="mixin">Ok, so I understand that you don't want to release a bloated library, but why not just release a SASS mixin?</h3>
+<h3 class="title-font text-center" id="mixinTitle">Ok, so I understand that you don't want to release a bloated library, but why not just release a SASS mixin?</h3>
 
 <p>
   Sure...
 </p>
 
-<pre>@mixin waitAnimate($options: ()) {
+<pre id="mixin">@mixin waitAnimate($options: ()) {
 
   $options: map-merge((
     animationName: waitAnimate,
@@ -261,13 +261,19 @@
 
 }</pre>
 
+<p class="text-right">
+  <button class="btn" ngclipboard data-clipboard-target="#mixin" ngclipboard-success="copySuccess(e);" ngclipboard-error="copyError(e);">
+    <i class="fa fa-clipboard"></i> Copy to clipboard
+  </button>
+</p>
+
 <div class="row">
   <div class="col-md-6">
     <p>
-    Then to use:
+    Include:
     </p>
 
-    <pre>@include waitAnimate(
+    <pre id="mixinInclude">@include waitAnimate(
   (
     animationName: animName,
     keyframes: (
@@ -290,11 +296,17 @@
     iterationCount: infinite
   )
 );</pre>
+
+    <p class="text-right">
+      <button class="btn" ngclipboard data-clipboard-target="#mixinInclude" ngclipboard-success="copySuccess(e);" ngclipboard-error="copyError(e);">
+        <i class="fa fa-clipboard"></i> Copy to clipboard
+      </button>
+    </p>
   </div>
 
   <div class="col-md-6">
     <p>
-    Outputs:
+    Output:
     </p>
 
     <pre>@keyframes animName-with-wait {
