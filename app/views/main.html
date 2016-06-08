@@ -210,9 +210,11 @@
 </p>
 
 <h3 class="title-font text-center">Ok, so I understand that you don't want to release a bloated library, but why not just release a SASS mixin?</h3>
+
 <p>
   Sure...
 </p>
+
 <pre>@mixin waitAnimate($options: ()) {
 
   $options: map-merge((
@@ -256,6 +258,130 @@
   }
 
 }</pre>
+
+<div class="row">
+  <div class="col-md-6">
+    <p>
+    Then to use:
+    </p>
+
+    <pre>@include waitAnimate(
+  (
+    animationName: animName,
+    keyframes: (
+      0: (
+        transform: scale(1),
+        background-color: blue
+      ),
+      50: (
+        transform: scale(2),
+        background-color: green
+      ),
+      100: (
+        transform: scale(3),
+        background-color: red
+      )
+    ),
+    duration: 2,
+    waitTime: 1,
+    timingFunction: ease,
+    iterationCount: infinite
+  )
+);</pre>
+  </div>
+
+  <div class="col-md-6">
+    <p>
+    Outputs:
+    </p>
+
+    <pre>@keyframes animName-with-wait {
+  0% {
+    transform: scale(1);
+    background-color: blue;
+  }
+  33.33333333% {
+    transform: scale(2);
+    background-color: green;
+  }
+  66.66666667% {
+    transform: scale(3);
+    background-color: red;
+  }
+  100% {
+    transform: scale(3);
+    background-color: red;
+  }
+}
+.animName {
+  animation: animName-with-wait 2s ease infinite;
+}</pre>
+  </div>
+</div>
+
+<p>
+  You'll notice that you need to change your keyframes rule to a SASS map object. I was unable to find a solution that could manipulate a standard keyframes rule. If you know of a way to do this, please let me know.
+</p>
+
+<p>
+  <code>@include waitAnimate((options));</code>
+</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <td>Option</td>
+      <td>Description</td>
+      <td>Type</td>
+      <td>Required?</td>
+      <td>Default</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>animationName</td>
+      <td>The class name of your animation.</td>
+      <td>String</td>
+      <td>No</td>
+      <td>waitAnimate</td>
+    </tr>
+    <tr>
+      <td>keyframes</td>
+      <td>The 0% to 100% animation rule.</td>
+      <td>SASS map object</td>
+      <td>Yes</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>duration</td>
+      <td>The length of the animation in seconds (wait time will be added to this).</td>
+      <td>Number</td>
+      <td>No</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>waitTime</td>
+      <td>The amount of pause time in seconds at the end of the animation.</td>
+      <td>Number</td>
+      <td>No</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>timingFunction</td>
+      <td>The speed curve of the animation.</td>
+      <td>String</td>
+      <td>No</td>
+      <td>linear</td>
+    </tr>
+    <tr>
+      <td>iterationCount</td>
+      <td>The number of times the animation should be played.</td>
+      <td>String</td>
+      <td>No</td>
+      <td>infinite</td>
+    </tr>
+  </tbody>
+</table>
 
 <h3 class="title-font text-center">Show me sources? Code, where art thou? I want to help... maybe.</h3>
 <p>
