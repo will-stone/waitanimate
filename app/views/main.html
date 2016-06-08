@@ -68,8 +68,8 @@
     <h4 class="section-font text-center">
       CSS
     </h4>
-<style id="egCssOutput" class="css-output">.{{egConfig.animation}}.wait{{egConfig.waitnum}}.animated {
-  animation: {{egConfig.animation}}-wait{{egConfig.waitnum}} {{(egAnimations[egConfig.animation].duration + egConfig.waitnum  | number: 5) * 1}}s {{egAnimations[egConfig.animation].animationTimingFunction}} infinite;{{egAnimations[egConfig.animation].transform}}
+<style id="egCssOutput" class="css-output">.{{egConfig.animation}} {
+  animation: {{egConfig.animation}} {{(egAnimations[egConfig.animation].duration + egConfig.waitnum  | number: 5) * 1}}s {{egAnimations[egConfig.animation].animationTimingFunction}} infinite;{{egAnimations[egConfig.animation].transform}}
 }
 {{string}}
 </style>
@@ -188,8 +188,8 @@
 
   <div class="col-xs-12 col-sm-6">
     <h4 class="section-font text-center">CSS</h4>
-<style id="customCssOutput" class="css-output">.{{customConfig.name}}.wait{{customConfig.waitnum}}.animated {
-  animation: {{customConfig.name}}-wait{{customConfig.waitnum}} {{(customConfig.duration + customConfig.waitnum  | number: 5) * 1}}s {{customConfig.timingFunction}} infinite;
+<style id="customCssOutput" class="css-output">.{{customConfig.name}} {
+  animation: {{customConfig.name}} {{(customConfig.duration + customConfig.waitnum  | number: 5) * 1}}s {{customConfig.timingFunction}} infinite;
   transform-origin: {{customConfig.transformOriginX}}% {{customConfig.transformOriginY}}%
 }
 {{customoutput}}
@@ -236,7 +236,7 @@
   $iterationCount: map-get($options, iterationCount);
   $counter: 1; // index of 'each'
 
-  @keyframes #{$name}-with-wait {
+  @keyframes #{$name} {
     @each $frame, $prop in $kf {
       #{$frame * $duration / ($duration + $waitTime)}% {
         @each $k, $v in $prop {
@@ -256,7 +256,7 @@
   }
 
   .#{$name} {
-    animation: #{$name}-with-wait #{$duration}s #{$timingFunction} #{$iterationCount};
+    animation: #{$name} #{$duration}s #{$timingFunction} #{$iterationCount};
   }
 
 }</pre>
@@ -309,7 +309,7 @@
     Output:
     </p>
 
-    <pre>@keyframes animName-with-wait {
+    <pre>@keyframes animName {
   0% {
     transform: scale(1);
     background-color: blue;
@@ -328,7 +328,7 @@
   }
 }
 .animName {
-  animation: animName-with-wait 2s ease infinite;
+  animation: animName 2s ease infinite;
 }</pre>
   </div>
 </div>

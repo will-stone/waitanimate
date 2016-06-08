@@ -217,7 +217,7 @@ angular.module('waitanimateApp')
   $scope.egConfig = { waitnum: 2, animation: 'wrench' };
 
   var kf = function(keyframes, duration, animationName, waitnum) {
-    var tempString = '@keyframes ' + animationName + '-wait' + waitnum + ' {\n';
+    var tempString = '@keyframes ' + animationName + ' {\n';
 
     var f, // frame
         p; // property
