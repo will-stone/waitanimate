@@ -212,7 +212,7 @@ textarea.form-control {
 	cursor: pointer;
 }
 
-.alert {
+.copyAlert {
 	@extend .title-font;
 	position: fixed;
 	top: 20px;
@@ -224,6 +224,19 @@ textarea.form-control {
 	color: $color3;
 	&.ng-hide {
 	  opacity: 0;
+	}
+}
+
+.topAlert {
+	@extend .title-font;
+	border: 2px solid $color3;
+	border-radius: 0;
+	background-color: $color2;
+	color: $color3;
+
+	a {
+		cursor: pointer;
+		color: $color4;
 	}
 }
 

@@ -8,7 +8,13 @@
 * Controller of the waitanimateApp
 */
 angular.module('waitanimateApp')
-.controller('MainCtrl', ['$scope', '$http', '$filter', '$timeout', function($scope, $http, $filter, $timeout) {
+.controller('MainCtrl', ['$scope', '$http', '$filter', '$timeout', '$location', '$anchorScroll', function($scope, $http, $filter, $timeout, $location, $anchorScroll) {
+
+  $scope.scrollTo = function(id) {
+    $location.hash(id);
+    $anchorScroll.yOffset = 100;
+    $anchorScroll();
+   };
 
   $scope.egAnimations = {
     'wrench': {
