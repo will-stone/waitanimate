@@ -177,7 +177,7 @@
           <textarea id="animationKeyframes" rows="10" placeholder="0% { example:animate(5) }
 50% { example:animate(10) }
 100% { example:animate(5) }" class="form-control" ng-model="customConfig.keyframes"></textarea>
-          <p class="help-block text-left"><small>Use percentages. Calculations cannot be performed on <em>from</em> and <em>to</em>.</small></p>
+          <p class="help-block text-justify"><small>Use percentages. Calculations cannot be performed on <em>from</em> and <em>to</em>. Also, it is recommended to start your animation at 0% and end it at 100%, therefore the calculated wait time will be precise.</small></p>
         </div>
       </div>
     </div>
@@ -206,8 +206,7 @@
 
 <h3 class="title-font text-center">Why aren't the examples registered with Bower?</h3>
 <p>
-  The Font Awesome Animation library is... well... awesome. Simply install with Bower then add the classes to your icons and animations-away. Therefore, it might seem natural for <span class="title-font">WAIT! Animate</span> to come as a library too; allowing you to add a <em>wait</em> class to instantly achieve the desired pause duration. However, <span class="title-font">WAIT! Animate</span> re-calculates the keyframe percentages based on the desired wait time. If we wanted to cover 0 to 30 seconds wait time for every animation, it would mean compiling 14 animations' keyframes for a 0 second wait, 1 second wait, 2 second wait.... and 30 second wait.<br>
-  Hmmm... not great if you only want to use the <em>Tada</em> animation with a 7 second wait; so much unused CSS being loaded by the browser.
+  The Font Awesome Animation library is... well... awesome. Simply install with Bower then add the classes to your icons. Therefore, it might seem natural for <span class="title-font">WAIT! Animate</span> to come as a library too, allowing you to add a <em>wait</em> class to instantly achieve the desired pause duration. However, <span class="title-font">WAIT! Animate</span> re-calculates the keyframe percentages based on the desired wait time and duration of the animation. If we wanted to cover 0 to 30 seconds wait time for every animation, it would mean compiling 14 animations' keyframes for a 0 second wait, 1 second wait, 2 second wait.... and 30 second wait. Err... I make that 434 classes with 434 keyframes rules. That's not great if you only want to use the <em>Tada</em> animation with a 7 second wait: a lot of unused CSS being loaded by the browser. And what about if you wanted a 33 second wait? Besides, making the custom tool means you can add wait times to <em>any</em> animation.
 </p>
 
 <h3 class="title-font text-center">Ok, so I understand that you don't want to release a bloated library, but why not just release a SASS mixin?</h3>
