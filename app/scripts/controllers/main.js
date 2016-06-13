@@ -37,8 +37,8 @@ angular.module('waitanimateApp')
       ],
       'duration': 1.875,
       'animationTimingFunction': 'ease',
-      'transformOriginX': '90%',
-      'transformOriginY': '35%',
+      'transformOriginX': '90',
+      'transformOriginY': '35',
       'icon': 'wrench'
     },
     'shake': {
@@ -79,7 +79,7 @@ angular.module('waitanimateApp')
       ],
       'duration': 0.4,
       'animationTimingFunction': 'ease',
-      'transformOriginY': '0%',
+      'transformOriginY': '0',
       'icon': 'bell'
     },
     'vertical': {
@@ -217,50 +217,8 @@ angular.module('waitanimateApp')
 
   $scope.egConfig = { waitnum: 2, animation: 'wrench' };
 
-  // var kf = function(keyframes, duration, animationName, waitnum) {
-  //   var tempString = '@keyframes ' + animationName + ' {\n';
-  //
-  //   var f, // frame
-  //       p; // property
-  //   for	(var i = 0; i < keyframes.length; i++) {
-  //     f = keyframes[i][0];
-  //     p = keyframes[i][1];
-  //     tempString += '  ' + $filter('number')(f * duration / (duration + waitnum), 5) * 1 + '% { ' + p + ' }\n';
-  //     if ( i + 1 === keyframes.length && (waitnum !== 0 || (waitnum === 0 && f !== '100')) ) {
-  //       tempString += '  100% { ' + p + ' }\n';
-  //     }
-  //   }
-  //   tempString += '}';
-  //   return tempString;
-  // };
-
-  // $scope.egKeyframes = function() {
-  //   $scope.string = kf($scope.egAnimations[$scope.egConfig.animation].keyframes, $scope.egAnimations[$scope.egConfig.animation].duration, $scope.egConfig.animation, $scope.egConfig.waitnum);
-  // };
-
-  // $scope.egKeyframes();
-
-  // custom config
+  // starting custom config
   $scope.customConfig = { keyframes: '0% { transform: scale(1) }\n12.5% { transform:scale(.9) rotate(-8deg) }\n25% { transform:scale(.9) rotate(-8deg) }\n37.5% { transform:scale(1.3) rotate(8deg) }\n50% { transform:scale(1.3) rotate(-8deg) }\n62.5% { transform:scale(1.3) rotate(8deg) }\n75% { transform:scale(1.3) rotate(-8deg) }\n87.5% { transform:scale(1.3) rotate(8deg) }\n100% { transform:scale(1) rotate(0) }', waitnum: 1, name: 'animationName', duration: 2, timingFunction: 'linear', transformOriginX: 50, transformOriginY: 50 };
-
-  // var string,
-  //     perct,
-  //     prop,
-  //     array;
-  // $scope.$watchGroup(['customConfig.keyframes', 'customConfig.waitnum', 'customConfig.name', 'customConfig.duration'], function() {
-  //   string = '';
-  //   array = [];
-  //   angular.element($scope.customConfig.keyframes.split('}')).each(function(index, value){
-  //     if ( value ) {
-  //       value = value.trim() + '}';
-  //       prop = value.match(/{([^}]+)}/)[1];
-  //       perct = value.split('%')[0];
-  //       array.push([perct, prop]);
-  //     }
-  //   });
-  //   $scope.customoutput = kf(array, $scope.customConfig.duration, $scope.customConfig.name, $scope.customConfig.waitnum);
-  // });
-
 
   // Copy to clipboard alert messages
   $scope.copySuccess = function(e) {

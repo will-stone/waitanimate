@@ -5,12 +5,12 @@ angular.module('waitanimateApp').component('outputCss', {
   controller: function($filter){
     var ctrl = this;
 
-    if ( angular.isUndefined(ctrl.transformOriginX) ) {
-      console.log('moo');
-    }
-
     // calculate keyframe percentages
     ctrl.kf = function(keyframes, duration, waitnum) {
+
+      // Defaults if transform origin not supplied
+      ctrl.transformOriginX = angular.isUndefined(ctrl.transformOriginX) ? '50' : ctrl.transformOriginX;
+      ctrl.transformOriginY = angular.isUndefined(ctrl.transformOriginY) ? '50' : ctrl.transformOriginY;
 
       // if custom keyframe, change string into array
       if ( typeof keyframes === 'string' ) {
@@ -28,9 +28,9 @@ angular.module('waitanimateApp').component('outputCss', {
         keyframes = kfarray;
       }
 
-      var string = '';
-
-      var f, // frame
+      // calculate new keyframe rule based on waitnum and duration
+      var string = '',
+          f, // frame
           p; // property
       for	(var i = 0; i < keyframes.length; i++) {
         f = keyframes[i][0];

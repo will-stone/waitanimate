@@ -1,6 +1,6 @@
-<pre><code>.{{$ctrl.name}} {
+<pre><code><span>.{{$ctrl.name}}</span> {
   animation: {{$ctrl.name}} {{($ctrl.duration + $ctrl.waitnum  | number: 5) * 1}}s {{$ctrl.timingFunction}} infinite;
-  transform-origin: {{$ctrl.transformOriginX}} {{$ctrl.transformOriginY}};
+  transform-origin: {{$ctrl.transformOriginX}}% {{$ctrl.transformOriginY}}%;
 }
 
 @keyframes {{$ctrl.name}} {
@@ -10,7 +10,7 @@
 <style>
 .{{$ctrl.name}} {
   animation: {{$ctrl.name}} {{($ctrl.duration + $ctrl.waitnum  | number: 5) * 1}}s {{$ctrl.timingFunction}} infinite;
-  transform-origin: {{$ctrl.transformOriginX}} {{$ctrl.transformOriginY}};
+  transform-origin: {{$ctrl.transformOriginX}}% {{$ctrl.transformOriginY}}%;
 }
 
 @keyframes {{$ctrl.name}} {
