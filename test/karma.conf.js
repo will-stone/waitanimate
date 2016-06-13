@@ -34,6 +34,7 @@ module.exports = function(config) {
       'bower_components/quick-select/dist/js/jquery.quickselect.min.js',
       'bower_components/clipboard/dist/clipboard.js',
       'bower_components/ngclipboard/dist/ngclipboard.js',
+      'bower_components/prism/prism.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

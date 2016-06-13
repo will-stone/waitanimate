@@ -41,7 +41,6 @@ angular.module('waitanimateApp').component('outputCss', {
         }
       }
       return string;
-
     };
 
   },
