@@ -3,31 +3,9 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-$color1: #F7FFF7;
-$color2: #ffdd3a;
-$color3: #080808;
-$color4: #D93F3F;
-$color5: #06d6a0;
-$color6: #333;
 
-.color1 { color: $color1; }
-.color2 { color: $color2; }
-.color3 { color: $color3; }
-
-.bgcolor5 {
-	background-color: $color5;
-}
-
-.css-output {
-	display: block;
-	background: $color3;
-	color: $color1;
-	font: 11px/1.8 Monaco, Mono-Space;
-	padding: 10px;
-	margin-bottom: 20px;
-	white-space: pre;
-	overflow-x: auto;
-}
+@import 'colors';
+@import 'outputCss';
 
 body {
 	background-image: url('../images/worn-dots.png');
@@ -251,4 +229,5 @@ pre {
 	border-radius: 0;
 	border-width: 2px;
 	border-color: $color3;
+	font-size: 12px;
 }

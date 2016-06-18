@@ -1,19 +1,7 @@
-<pre><code>.{{$ctrl.name}} {
+<style class="css-output">.{{$ctrl.name}} {
   animation: {{$ctrl.name}} {{($ctrl.duration + $ctrl.waitnum  | number: 5) * 1}}s {{$ctrl.timingFunction}} infinite;
   transform-origin: {{$ctrl.transformOriginX}}% {{$ctrl.transformOriginY}}%;
 }
 
 @keyframes {{$ctrl.name}} {
-{{$ctrl.kf($ctrl.keyframes, $ctrl.duration, $ctrl.waitnum)}}
-}</code></pre>
-
-<style>
-.{{$ctrl.name}} {
-  animation: {{$ctrl.name}} {{($ctrl.duration + $ctrl.waitnum  | number: 5) * 1}}s {{$ctrl.timingFunction}} infinite;
-  transform-origin: {{$ctrl.transformOriginX}}% {{$ctrl.transformOriginY}}%;
-}
-
-@keyframes {{$ctrl.name}} {
-  {{$ctrl.kf($ctrl.keyframes, $ctrl.duration, $ctrl.waitnum)}}
-}
-</style>
+{{$ctrl.kf($ctrl.keyframes, $ctrl.duration, $ctrl.waitnum)}}}</style>
