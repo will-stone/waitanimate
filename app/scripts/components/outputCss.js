@@ -2,7 +2,7 @@
 
 angular.module('waitanimateApp').component('outputCss', {
   templateUrl: 'views/templates/outputCss.html',
-  controller: function($filter){
+  controller: ['$filter', function($filter){
     var ctrl = this;
 
     // calculate keyframe percentages
@@ -43,7 +43,7 @@ angular.module('waitanimateApp').component('outputCss', {
       return string;
     };
 
-  },
+  }],
   bindings: {
     name: '<',
     duration: '<',
