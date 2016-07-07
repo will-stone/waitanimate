@@ -10,9 +10,9 @@
     "angular-route": "^1.4.0",
     "angular-sanitize": "^1.4.0",
     "angular-touch": "^1.4.0",
-    "quick-select": "*",
     "ngclipboard": "^1.1.1",
-    "jquery": "<3.0.0"
+    "jquery": "<3.0.0",
+    "quick-select": "*"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
