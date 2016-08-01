@@ -157,6 +157,7 @@ textarea.form-control {
 	border-radius: 0;
 	border-color: $color3;
 	border-width: 2px;
+	-webkit-user-select: none;
 }
 
 .help-block {
