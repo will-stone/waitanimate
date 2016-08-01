@@ -6,7 +6,7 @@ angular.module('waitanimateApp').component('outputCss', {
     var ctrl = this;
 
     // calculate keyframe percentages
-    ctrl.kf = function(keyframes, duration, waitnum) {
+    function kf(keyframes, duration, waitnum) {
 
       // Defaults if transform origin not supplied
       ctrl.transformOriginX = angular.isUndefined(ctrl.transformOriginX) ? '50' : ctrl.transformOriginX;
@@ -40,7 +40,14 @@ angular.module('waitanimateApp').component('outputCss', {
           string += '  100% { ' + p + ' }\n';
         }
       }
+
+
       return string;
+    }
+
+    ctrl.$onChanges = function() {
+      ctrl.kf = kf(ctrl.keyframes, ctrl.duration, ctrl.waitnum);
+      ctrl.randomNum = Math.floor(Math.random() * (10000 - 0 + 1)) + 0;
     };
 
   }],
