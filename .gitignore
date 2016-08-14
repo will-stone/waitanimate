@@ -3,3 +3,4 @@
 /.sass-cache
 /bower_components
 .DS_Store
+/public
