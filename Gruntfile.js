@@ -17,8 +17,7 @@ module.exports = function (grunt) {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn',
-    buildcontrol: 'grunt-build-control',
-    run: 'grunt-run'
+    buildcontrol: 'grunt-build-control'
   });
 
   // Configurable paths for the application
@@ -437,12 +436,6 @@ module.exports = function (grunt) {
       }
     },
 
-    run: {
-      pushDir: {
-        cmd: './node_modules/push-dir/bin/push-dir.js --dir=public --branch=gh-pages --cleanup',
-      }
-    }
-
   });
 
 
@@ -500,8 +493,4 @@ module.exports = function (grunt) {
     'build'
   ]);
 
-  grunt.registerTask('deploy', [
-    // 'build',
-    'run:pushDir'
-  ]);
 };
