@@ -446,8 +446,7 @@ module.exports = function (grunt) {
       ghpages: {
         options: {
           remote: 'git@github.com:eggboxio/waitanimate.git',
-          branch: 'gh-pages',
-          force: true
+          branch: 'gh-pages'
         }
       }
     }
