@@ -17,7 +17,7 @@ module.exports = function (grunt) {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn',
-    ghPages: 'grunt-gh-pages'
+    buildcontrol: 'grunt-build-control'
   });
 
   // Configurable paths for the application
@@ -436,11 +436,19 @@ module.exports = function (grunt) {
       }
     },
 
-    ghPages: {
+    buildcontrol: {
       options: {
-        base: 'public'
+        dir: 'public',
+        commit: true,
+        push: true,
+        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
       },
-      src: ['**']
+      pages: {
+        options: {
+          // remote: 'git@github.com:example_user/example_webapp.git',
+          branch: 'gh-pages'
+        }
+      }
     }
 
   });
@@ -501,7 +509,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('deploy', [
-    'ghPages'
+    'buildcontrol:pages'
   ]);
 
 };
