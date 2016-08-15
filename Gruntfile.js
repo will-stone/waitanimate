@@ -436,18 +436,9 @@ module.exports = function (grunt) {
       }
     },
 
-    buildcontrol: {
-      options: {
-        dir: '<%= yeoman.dist %>',
-        commit: true,
-        push: true,
-        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
-      },
-      ghpages: {
-        options: {
-          // remote: 'git@github.com:eggboxio/waitanimate.git',
-          branch: 'gh-pages'
-        }
+    run: {
+      pushDir: {
+        cmd: './node_modules/push-dir/bin/push-dir.js --dir=public --branch=gh-pages --cleanup',
       }
     }
 
@@ -510,6 +501,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('deploy', [
     // 'build',
-    'buildcontrol:ghpages'
+    'run:pushDir'
   ]);
 };
