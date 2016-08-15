@@ -509,8 +509,8 @@ module.exports = function (grunt) {
     'build'
   ]);
 
-  grunt.registerTask('push', [
-    'build',
+  grunt.registerTask('deploy', [
+    // 'build',
     'buildcontrol:ghpages'
   ]);
 };
