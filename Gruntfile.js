@@ -446,7 +446,8 @@ module.exports = function (grunt) {
       ghpages: {
         options: {
           // remote: 'origin',
-          branch: 'gh-pages'
+          branch: 'gh-pages',
+          force: true
         }
       }
     }
