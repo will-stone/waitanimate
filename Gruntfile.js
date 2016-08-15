@@ -17,7 +17,8 @@ module.exports = function (grunt) {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn',
-    buildcontrol: 'grunt-build-control'
+    buildcontrol: 'grunt-build-control',
+    run: 'grunt-run'
   });
 
   // Configurable paths for the application
