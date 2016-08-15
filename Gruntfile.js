@@ -16,7 +16,8 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    buildcontrol: 'grunt-build-control'
   });
 
   // Configurable paths for the application
@@ -49,9 +50,9 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:test', 'newer:jscs:test', 'karma']
       },
       sass: {
-				files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-				tasks: ['sass:server', 'postcss']
-			},
+        files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
+        tasks: ['sass:server', 'postcss']
+      },
       gruntfile: {
         files: ['Gruntfile.js']
       },
@@ -212,14 +213,14 @@ module.exports = function (grunt) {
         fileTypes:{
           js: {
             block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-              detect: {
-                js: /'(.*\.js)'/gi
-              },
-              replace: {
-                js: '\'{{filePath}}\','
-              }
+            detect: {
+              js: /'(.*\.js)'/gi
+            },
+            replace: {
+              js: '\'{{filePath}}\','
             }
           }
+        }
       },
       sass: {
         src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -256,31 +257,31 @@ module.exports = function (grunt) {
     //   }
     // },
     // Compiles Sass to CSS and generates necessary files if requested
-		sass: {
-			options: {
-				includePaths: [
-					'bower_components'
-				]
-			},
-			dist: {
-				files: [{
-					expand: true,
-					cwd: '<%= yeoman.app %>/styles',
-					src: ['*.scss'],
-					dest: '.tmp/styles',
-					ext: '.css'
-				}]
-			},
-			server: {
-				files: [{
-					expand: true,
-					cwd: '<%= yeoman.app %>/styles',
-					src: ['*.scss'],
-					dest: '.tmp/styles',
-					ext: '.css'
-				}]
-			}
-		},
+    sass: {
+      options: {
+        includePaths: [
+          'bower_components'
+        ]
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/styles',
+          src: ['*.scss'],
+          dest: '.tmp/styles',
+          ext: '.css'
+        }]
+      },
+      server: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>/styles',
+          src: ['*.scss'],
+          dest: '.tmp/styles',
+          ext: '.css'
+        }]
+      }
+    },
 
     // Renames files for browser caching purposes
     filerev: {
@@ -466,26 +467,41 @@ module.exports = function (grunt) {
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
-			server: [
-				'sass:server',
-				'copy:styles'
-			],
-			test: [
-				'copy:styles'
-			],
-			dist: [
-				'sass',
-				'copy:styles',
-				'imagemin',
-				'svgmin'
-			]
-		},
+      server: [
+        'sass:server',
+        'copy:styles'
+      ],
+      test: [
+        'copy:styles'
+      ],
+      dist: [
+        'sass',
+        'copy:styles',
+        'imagemin',
+        'svgmin'
+      ]
+    },
 
     // Test settings
     karma: {
       unit: {
         configFile: 'test/karma.conf.js',
         singleRun: true
+      }
+    }
+
+    buildcontrol: {
+      options: {
+        dir: 'dist',
+        commit: true,
+        push: true,
+        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+      },
+      ghpages: {
+        options: {
+          remote: 'origin',
+          branch: 'gh-pages'
+        }
       }
     }
   });
@@ -543,5 +559,10 @@ module.exports = function (grunt) {
     'newer:jscs',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('push', [
+    'build',
+    'buildcontrol:ghpages'
   ]);
 };
