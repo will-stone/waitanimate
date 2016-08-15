@@ -17,7 +17,7 @@ module.exports = function (grunt) {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn',
-    buildcontrol: 'grunt-build-control'
+    ghPages: 'grunt-gh-pages'
   });
 
   // Configurable paths for the application
@@ -435,6 +435,13 @@ module.exports = function (grunt) {
         singleRun: true
       }
     },
+
+    ghPages: {
+      options: {
+        base: 'public'
+      },
+      src: ['**']
+    }
 
   });
 
