@@ -42,6 +42,6 @@
   },
   "scripts": {
     "test": "grunt test",
-    "deploy": "git clone git@github.com:eggboxio/waitanimate.git --branch gh-pages public --single-branch && cd public && git add --all && git commit -m \"Release at $(date)\" && git push && cd .. && rm -rf public"
+    "deploy": "rm -rf public && git clone git@github.com:eggboxio/waitanimate.git --branch gh-pages public --single-branch && grunt && cd public && git add --all && git commit -m \"Release at $(date)\" && git push && cd .. && rm -rf public"
   }
 }
