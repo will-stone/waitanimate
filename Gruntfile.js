@@ -500,4 +500,8 @@ module.exports = function (grunt) {
     'build'
   ]);
 
+  grunt.registerTask('deploy', [
+    'ghPages'
+  ]);
+
 };
