@@ -4,12 +4,14 @@
 
 ## Build & development
 
-Run `grunt` for building and `grunt serve` for preview.
+Clone then `npm install && bower install`.
 
-To deploy to gh-pages:
+Run `grunt serve` for preview.
+
+## Deploy
+
+To deploy to gh-pages (run from project root):
 
 ```
-grunt
-
-./node_modules/push-dir/bin/push-dir.js --dir=public --branch=gh-pages --cleanup
+npm run deploy
 ```
