@@ -1,6 +1,6 @@
 # WAIT! Animate
 
-[waitanimate.eggbox.io](http://waitanimate.eggbox.io/)
+[waitanimate.wstone.io](http://waitanimate.wstone.io/)
 
 ## Build & development
 
