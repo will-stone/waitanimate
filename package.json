@@ -22,6 +22,7 @@
     "tailwindcss": "^1.4.6"
   },
   "dependencies": {
+    "@sindresorhus/string-hash": "^1.2.0",
     "sirv-cli": "^0.4.4"
   },
   "prettier": "@will-stone/prettier-config"
