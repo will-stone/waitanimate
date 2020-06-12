@@ -1,6 +1,6 @@
 <script>
-  import "./Globalcss.svelte";
-  import InlineCode from "./components/inline-code.svelte";
+  import './Globalcss.svelte'
+  import InlineCode from './components/inline-code.svelte'
 </script>
 
 <main class="container py-16">

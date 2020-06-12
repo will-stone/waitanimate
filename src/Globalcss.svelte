@@ -7,7 +7,7 @@
 
   body {
     @apply bg-red-800;
-    background-image: url("../images/worn-dots.png");
+    background-image: url('../images/worn-dots.png');
 
     @apply text-white;
   }
