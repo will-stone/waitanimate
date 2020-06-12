@@ -3,6 +3,7 @@
   import InlineCode from './components/inline-code.svelte'
   import stringHash from '@sindresorhus/string-hash'
 
+  let duration = 2
   let timingFunction = 'linear'
   let transformOriginX = 50
   let transformOriginY = 50
@@ -12,7 +13,11 @@
   // in the style block to be honoured. The hash must include all vars that can
   // change the animation style.
   $: animationNameHash = stringHash(
-    timingFunction + transformOriginX + transformOriginY + animationName,
+    duration +
+      timingFunction +
+      transformOriginX +
+      transformOriginY +
+      animationName,
   )
 </script>
 
@@ -41,6 +46,16 @@
   </p>
 
   <h3>Settings</h3>
+
+  <h4>Animation Duration</h4>
+
+  <button type="button" on:click={() => (duration -= 1)}>
+    <i class="fa fa-minus" />
+  </button>
+  <input type="number" bind:value={duration} class="text-gray-900" />
+  <button type="button" on:click={() => (duration += 1)}>
+    <i class="fa fa-plus" />
+  </button>
 
   <h4>Name</h4>
 
@@ -85,7 +100,7 @@
   </button>
 
   {@html `<${'style'} class="block whitespace-pre font-mono bg-gray-900 text-gray-100 p-4 rounded">.${animationName} {
-  animation: ${animationName}_${animationNameHash} 3s ${timingFunction} infinite;
+  animation: ${animationName}_${animationNameHash} ${duration}s ${timingFunction} infinite;
   transform-origin: ${transformOriginX}% ${transformOriginY}%;
 }
 
