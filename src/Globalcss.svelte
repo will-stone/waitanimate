@@ -6,7 +6,7 @@
   @tailwind utilities;
 
   body {
-    @apply bg-red-600;
+    @apply bg-red-800;
     background-image: url("../images/worn-dots.png");
 
     @apply text-white;
