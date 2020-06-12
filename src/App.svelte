@@ -37,7 +37,7 @@
   <h4 class="section-font">Preview</h4>
 
   <p>
-    <i class="fa fa-cube fa-5x {animationName} animated" />
+    <span class="inline-block font-title text-6xl {animationName}">!</span>
   </p>
 
   <h3>Settings</h3>
@@ -48,11 +48,19 @@
 
   <h4>Timing Function</h4>
 
-  <button type="button" on:click={() => (timingFunction = "linear")}>linear</button>
-  <button type="button" on:click={() => (timingFunction = "ease")}>ease</button>
-  <button type="button" on:click={() => (timingFunction = "ease-in")}>ease-in</button>
-  <button type="button" on:click={() => (timingFunction = "ease-out")}>ease-out</button>
-  <button type="button" on:click={() => (timingFunction = "ease-in-out")}>ease-in-out</button>
+  <button type="button" on:click={() => (timingFunction = 'linear')}>
+    linear
+  </button>
+  <button type="button" on:click={() => (timingFunction = 'ease')}>ease</button>
+  <button type="button" on:click={() => (timingFunction = 'ease-in')}>
+    ease-in
+  </button>
+  <button type="button" on:click={() => (timingFunction = 'ease-out')}>
+    ease-out
+  </button>
+  <button type="button" on:click={() => (timingFunction = 'ease-in-out')}>
+    ease-in-out
+  </button>
 
   <h4>Transform Origin</h4>
 
@@ -75,7 +83,6 @@
   <button on:click={() => (transformOriginY += 1)}>
     <i class="fa fa-plus" />
   </button>
-
 
   {@html `<${'style'} class="block whitespace-pre font-mono bg-gray-900 text-gray-100 p-4 rounded">.${animationName} {
   animation: ${animationName}_${animationNameHash} 3s ${timingFunction} infinite;
