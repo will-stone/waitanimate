@@ -1,47 +1,26 @@
 {
-  "name": "waitanimate",
-  "private": true,
-  "devDependencies": {
-    "autoprefixer-core": "^5.2.1",
-    "grunt": "^0.4.5",
-    "grunt-angular-templates": "^0.5.7",
-    "grunt-concurrent": "^1.0.0",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-connect": "^0.9.0",
-    "grunt-contrib-copy": "^0.7.0",
-    "grunt-contrib-cssmin": "^0.12.0",
-    "grunt-contrib-htmlmin": "^0.4.0",
-    "grunt-contrib-imagemin": "^1.0.0",
-    "grunt-contrib-jshint": "^0.11.3",
-    "grunt-contrib-uglify": "^0.7.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-filerev": "^2.1.2",
-    "grunt-google-cdn": "^0.4.3",
-    "grunt-jscs": "^1.8.0",
-    "grunt-karma": "*",
-    "grunt-newer": "^1.1.0",
-    "grunt-ng-annotate": "^0.9.2",
-    "grunt-postcss": "^0.5.5",
-    "grunt-sass": "^1.1.0",
-    "grunt-svgmin": "^2.0.0",
-    "grunt-usemin": "^3.0.0",
-    "grunt-wiredep": "^2.0.0",
-    "jasmine-core": "^2.4.1",
-    "jit-grunt": "^0.9.1",
-    "jshint-stylish": "^1.0.0",
-    "karma": "^0.13.15",
-    "karma-jasmine": "*",
-    "karma-phantomjs-launcher": "*",
-    "phantomjs": "^1.9.19",
-    "phantomjs-prebuilt": "^2.1.4",
-    "time-grunt": "^1.0.0"
-  },
-  "engines": {
-    "node": ">=0.10.0"
-  },
+  "name": "svelte-app",
+  "version": "1.0.0",
   "scripts": {
-    "test": "grunt test",
-    "deploy": "rm -rf public && git clone git@github.com:will-stone/waitanimate.git --branch gh-pages public --single-branch && grunt && cd public && git add --all && git commit -m \"Release at $(date)\" && git push && cd .. && rm -rf public"
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "start": "sirv public"
+  },
+  "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^2.2.0",
+    "@rollup/plugin-commonjs": "^12.0.0",
+    "@rollup/plugin-node-resolve": "^8.0.0",
+    "postcss": "^7.0.32",
+    "postcss-load-config": "^2.1.0",
+    "rollup": "^2.3.4",
+    "rollup-plugin-livereload": "^1.0.0",
+    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-terser": "^5.1.2",
+    "svelte": "^3.0.0",
+    "svelte-preprocess": "^3.9.7",
+    "tailwindcss": "^1.4.6"
+  },
+  "dependencies": {
+    "sirv-cli": "^0.4.4"
   }
 }
