@@ -3,11 +3,13 @@
   import InlineCode from './components/inline-code.svelte'
   import stringHash from '@sindresorhus/string-hash'
 
+  let animationName = 'animationName'
   let duration = 2
   let timingFunction = 'linear'
   let transformOriginX = 50
   let transformOriginY = 50
-  let animationName = 'animationName'
+  let keyframes =
+    '0% { transform: scale(1) }\n12.5% { transform:scale(.9) rotate(-8deg) }\n25% { transform:scale(.9) rotate(-8deg) }\n37.5% { transform:scale(1.3) rotate(8deg) }\n50% { transform:scale(1.3) rotate(-8deg) }\n62.5% { transform:scale(1.3) rotate(8deg) }\n75% { transform:scale(1.3) rotate(-8deg) }\n87.5% { transform:scale(1.3) rotate(8deg) }\n100% { transform:scale(1) rotate(0) }'
 
   // This acts as a cache buster on chromium-based browsers, and allows changes
   // in the style block to be honoured. The hash must include all vars that can
@@ -17,7 +19,8 @@
       timingFunction +
       transformOriginX +
       transformOriginY +
-      animationName,
+      animationName +
+      keyframes,
   )
 </script>
 
@@ -47,6 +50,10 @@
 
   <h3>Settings</h3>
 
+  <h4>Name</h4>
+
+  <input type="text" bind:value={animationName} class="text-gray-900" />
+
   <h4>Animation Duration</h4>
 
   <button type="button" on:click={() => (duration -= 1)}>
@@ -56,10 +63,6 @@
   <button type="button" on:click={() => (duration += 1)}>
     <i class="fa fa-plus" />
   </button>
-
-  <h4>Name</h4>
-
-  <input type="text" bind:value={animationName} class="text-gray-900" />
 
   <h4>Timing Function</h4>
 
@@ -98,6 +101,10 @@
   <button on:click={() => (transformOriginY += 1)}>
     <i class="fa fa-plus" />
   </button>
+
+  <h4>Keyframes</h4>
+
+  <textarea bind:value={keyframes} class="font-mono text-gray-900 text-sm w-full p-4 shadow-inner border-4 border-gray-900" rows="10"></textarea>
 
   {@html `<${'style'} class="block whitespace-pre font-mono bg-gray-900 text-gray-100 p-4 rounded">.${animationName} {
   animation: ${animationName}_${animationNameHash} ${duration}s ${timingFunction} infinite;
