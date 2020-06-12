@@ -1,5 +1,6 @@
 <script>
   import "./Globalcss.svelte";
+  import InlineCode from "./components/inline-code.svelte";
 </script>
 
 <main class="container py-16">
@@ -11,9 +12,7 @@
   <p class="text-xl text-justify font-semibold">
     CSS doesn't provide an easy way to pause an animation before it loops around
     again. Yes, there's
-    <code class="bg-white text-gray-900 px-1 rounded whitespace-no-wrap">
-      animation-delay
-    </code>
+    <InlineCode>animation-delay</InlineCode>
     but this simply denotes a delay at the very start of the animation, i.e on
     load.
     <span class="font-title font-normal">WAIT! Animate</span>
