@@ -1,25 +1,30 @@
 <script>
+  import { addWaitToKeyframes } from './utils/add-wait-to-keyframes'
   import './Globalcss.svelte'
   import InlineCode from './components/inline-code.svelte'
   import stringHash from '@sindresorhus/string-hash'
 
+  let waitTime = 1
   let animationName = 'animationName'
   let duration = 2
   let timingFunction = 'linear'
   let transformOriginX = 50
   let transformOriginY = 50
   let keyframes =
-    '0% { transform: scale(1) }\n12.5% { transform:scale(.9) rotate(-8deg) }\n25% { transform:scale(.9) rotate(-8deg) }\n37.5% { transform:scale(1.3) rotate(8deg) }\n50% { transform:scale(1.3) rotate(-8deg) }\n62.5% { transform:scale(1.3) rotate(8deg) }\n75% { transform:scale(1.3) rotate(-8deg) }\n87.5% { transform:scale(1.3) rotate(8deg) }\n100% { transform:scale(1) rotate(0) }'
+    '0% { transform: scale(1); }\n12.5% { transform:scale(.9) rotate(-8deg); }\n25% { transform:scale(.9) rotate(-8deg); }\n37.5% { transform:scale(1.3) rotate(8deg); }\n50% { transform:scale(1.3) rotate(-8deg); }\n62.5% { transform:scale(1.3) rotate(8deg); }\n75% { transform:scale(1.3) rotate(-8deg); }\n87.5% { transform:scale(1.3) rotate(8deg); }\n100% { transform:scale(1) rotate(0); }'
+
+  $: outputKeyFrames = addWaitToKeyframes(keyframes, duration, waitTime)
 
   // This acts as a cache buster on chromium-based browsers, and allows changes
   // in the style block to be honoured. The hash must include all vars that can
   // change the animation style.
   $: animationNameHash = stringHash(
-    duration +
+    waitTime +
+      animationName +
+      duration +
       timingFunction +
       transformOriginX +
       transformOriginY +
-      animationName +
       keyframes,
   )
 </script>
@@ -49,6 +54,16 @@
   </p>
 
   <h3>Settings</h3>
+
+  <h4>Wait Time</h4>
+
+  <button type="button" on:click={() => (waitTime -= 1)}>
+    <i class="fa fa-minus" />
+  </button>
+  <input type="number" bind:value={waitTime} class="text-gray-900" />
+  <button type="button" on:click={() => (waitTime += 1)}>
+    <i class="fa fa-plus" />
+  </button>
 
   <h4>Name</h4>
 
@@ -104,24 +119,19 @@
 
   <h4>Keyframes</h4>
 
-  <textarea bind:value={keyframes} class="font-mono text-gray-900 text-sm w-full p-4 shadow-inner border-4 border-gray-900" rows="10"></textarea>
+  <textarea
+    bind:value={keyframes}
+    class="font-mono text-gray-900 text-sm w-full p-4 shadow-inner border-4
+    border-gray-900"
+    rows="10" />
 
   {@html `<${'style'} class="block whitespace-pre font-mono bg-gray-900 text-gray-100 p-4 rounded">.${animationName} {
-  animation: ${animationName}_${animationNameHash} ${duration}s ${timingFunction} infinite;
+  animation: ${animationName}_${animationNameHash} ${duration + waitTime}s ${timingFunction} infinite;
   transform-origin: ${transformOriginX}% ${transformOriginY}%;
 }
 
 @keyframes ${animationName}_${animationNameHash} {
-  0% {  transform: scale(1) }
-  8.33333% {  transform:scale(.9) rotate(-8deg) }
-  16.66667% {  transform:scale(.9) rotate(-8deg) }
-  25% {  transform:scale(1.3) rotate(8deg) }
-  33.33333% {  transform:scale(1.3) rotate(-8deg) }
-  41.66667% {  transform:scale(1.3) rotate(8deg) }
-  50% {  transform:scale(1.3) rotate(-8deg) }
-  58.33333% {  transform:scale(1.3) rotate(8deg) }
-  66.66667% {  transform:scale(1) rotate(0) }
-  100% {  transform:scale(1) rotate(0) }
+${outputKeyFrames}
 }  
 </style>`}
 </main>
