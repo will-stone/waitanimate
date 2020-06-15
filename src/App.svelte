@@ -12,7 +12,7 @@
   import { addWaitToKeyframes } from './utils/add-wait-to-keyframes'
 
   let waitTime = 1
-  let className = 'className'
+  let className = 'waitAnimate'
   let duration = 2
   let timingFunction = 'linear'
   let transformOriginX = 50
@@ -51,9 +51,75 @@ waitanimate.wstone.io
 ${outputKeyFrames}
 }`
 
-  function handleClickCopy() {
-    copy(output)
+  function handleClickCopy(text) {
+    copy(text)
   }
+
+  const mixin = `@mixin waitAnimate($options: ()) {
+  $options: map-merge((
+    animationName: waitAnimate,
+    duration: 1,
+    waitTime: 0,
+    timingFunction: linear,
+    iterationCount: infinite
+  ), $options);
+
+  $name: map-get($options, animationName);
+  $kf: map-get($options, keyframes);
+  $kfLength: length($kf);
+  $duration: map-get($options, duration);
+  $waitTime: map-get($options, waitTime);
+  $timingFunction: map-get($options, timingFunction);
+  $iterationCount: map-get($options, iterationCount);
+  $counter: 1; // index of 'each'
+
+  @keyframes #{$name} {
+    @each $frame, $prop in $kf {
+      #{$frame * $duration / ($duration + $waitTime)}% {
+        @each $k, $v in $prop {
+          #{$k}: #{$v}
+        }
+      }
+      // if last in loop and waitTime is not 0, add the last frame as 100% (this is what creates the pause)
+      @if $counter == $kfLength and $waitTime > 0 {
+        100% {
+          @each $k, $v in $prop {
+            #{$k}: #{$v}
+          }
+        }
+      }
+      $counter: $counter+1;
+    }
+  }
+
+  .#{$name} {
+    animation: #{$name} #{$duration + $waitTime}s #{$timingFunction} #{$iterationCount};
+  }
+}`
+
+  const include = `@include waitAnimate(
+  (
+    animationName: animName,
+    keyframes: (
+      0: (
+        transform: scale(1),
+        background-color: blue
+      ),
+      50: (
+        transform: scale(2),
+        background-color: green
+      ),
+      100: (
+        transform: scale(3),
+        background-color: red
+      )
+    ),
+    duration: 2,
+    waitTime: 1,
+    timingFunction: ease,
+    iterationCount: infinite
+  )
+);`
 </script>
 
 <main class="container py-16">
@@ -72,10 +138,10 @@ ${outputKeyFrames}
     calculates updated keyframe percentages given a
     <i>wait</i>
     time meaning you can insert a delay between each animation iteration using
-    pure CSS, no JavaScript.
+    pure CSS, without JavaScript.
   </p>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
     <div>
       <div class="mb-4">
         <H4>Class Name</H4>
@@ -174,7 +240,7 @@ ${outputKeyFrames}
       </div>
 
       <button
-        on:click={handleClickCopy}
+        on:click={() => handleClickCopy(output)}
         type="button"
         class="border-4 border-black h-12 text-lg flex items-center
         justify-center font-bold bg-black text-white px-2 ml-auto
@@ -184,4 +250,169 @@ ${outputKeyFrames}
     </div>
   </div>
 
+  <h2 class="font-title text-center text-2xl mb-4">SCSS Mixin</h2>
+
+  <div class="mb-4">
+    <div
+      class="whitespace-pre font-mono p-4 mb-4 bg-red-900 rounded
+      overflow-x-auto text-sm">
+      {mixin}
+    </div>
+
+    <button
+      on:click={() => handleClickCopy(mixin)}
+      type="button"
+      class="border-4 border-black h-12 text-lg flex items-center justify-center
+      font-bold bg-black text-white px-2 ml-auto hover:bg-red-900">
+      Copy To Clipboard
+    </button>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4 mb-8">
+    <div>
+      <H4>Include:</H4>
+
+      <div
+        class="whitespace-pre font-mono p-4 mb-4 bg-red-900 rounded
+        overflow-x-auto text-sm">
+        {include}
+      </div>
+
+      <button
+        on:click={() => handleClickCopy(include)}
+        type="button"
+        class="border-4 border-black h-12 text-lg flex items-center
+        justify-center font-bold bg-black text-white px-2 ml-auto
+        hover:bg-red-900">
+        Copy To Clipboard
+      </button>
+    </div>
+
+    <div>
+      <H4>Output:</H4>
+
+      <div
+        class="whitespace-pre font-mono p-4 mb-4 bg-black rounded
+        overflow-x-auto text-sm">
+        {`@keyframes animName {
+  0% {
+    transform: scale(1);
+    background-color: blue;
+  }
+  33.33333333% {
+    transform: scale(2);
+    background-color: green;
+  }
+  66.66666667% {
+    transform: scale(3);
+    background-color: red;
+  }
+  100% {
+    transform: scale(3);
+    background-color: red;
+  }
+}
+
+.animName {
+  animation: animName 2s ease infinite;
+}`}
+      </div>
+    </div>
+  </div>
+
+  <p class="mb-4">
+    You'll notice that you need to change your keyframes rule to a SASS map
+    object. I was unable to find a solution that could manipulate a standard
+    keyframes rule. If you know of a way to do this, please let me know.
+  </p>
+
+  <p class="mb-4">
+    <InlineCode>@include waitAnimate((options));</InlineCode>
+  </p>
+
+  <div class="mb-8">
+    <table>
+      <thead class="font-bold">
+        <tr>
+          <td class="p-2">Option</td>
+          <td class="p-2">Description</td>
+          <td class="p-2">Type</td>
+          <td class="p-2">Required?</td>
+          <td class="p-2">Default</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="bg-red-900">
+          <td class="p-2 font-bold">animationName</td>
+          <td class="p-2">The class name of your animation.</td>
+          <td class="p-2">String</td>
+          <td class="p-2">No</td>
+          <td class="p-2">waitAnimate</td>
+        </tr>
+        <tr>
+          <td class="p-2 font-bold">keyframes</td>
+          <td class="p-2">The 0% to 100% animation rule.</td>
+          <td class="p-2">SASS map object</td>
+          <td class="p-2">Yes</td>
+          <td />
+        </tr>
+        <tr class="bg-red-900">
+          <td class="p-2 font-bold">duration</td>
+          <td class="p-2">
+            The length of the animation in seconds (wait time will be added to
+            this).
+          </td>
+          <td class="p-2 font-bold">Number</td>
+          <td class="p-2">No</td>
+          <td class="p-2">1</td>
+        </tr>
+        <tr>
+          <td class="p-2 font-bold">waitTime</td>
+          <td class="p-2">
+            The amount of pause time in seconds at the end of the animation.
+          </td>
+          <td class="p-2 font-bold">Number</td>
+          <td class="p-2">No</td>
+          <td class="p-2">0</td>
+        </tr>
+        <tr class="bg-red-900">
+          <td class="p-2 font-bold">timingFunction</td>
+          <td class="p-2">The speed curve of the animation.</td>
+          <td class="p-2">String</td>
+          <td class="p-2">No</td>
+          <td class="p-2">linear</td>
+        </tr>
+        <tr>
+          <td class="p-2 font-bold">iterationCount</td>
+          <td class="p-2">
+            The number of times the animation should be played.
+          </td>
+          <td class="p-2">String</td>
+          <td class="p-2">No</td>
+          <td class="p-2">infinite</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </main>
+
+<hr class="mb-16 border-red-900" />
+
+<footer class="text-center pb-16">
+  <p class="mb-8">
+    <span class="font-title">WAIT! Animate</span>
+    is a project by
+    <a href="http://wstone.io" class="underline">Will Stone</a>
+  </p>
+
+  <H4>Credits</H4>
+
+  <ul class="list-unstyled">
+    <li>
+      <a href="https://github.com/vernnobile" class="hover:underline">
+        <span class="font-title">Bowlby One SC</span>
+        font by Vernon Adams
+      </a>
+    </li>
+  </ul>
+</footer>
