@@ -49,7 +49,7 @@
     JavaScript.
   </p>
 
-  <h4 class="section-font">Preview test</h4>
+  <h4 class="section-font">Preview</h4>
 
   <p>
     <span class="inline-block font-title text-6xl {animationName}">!</span>
