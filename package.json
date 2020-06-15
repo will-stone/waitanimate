@@ -1,6 +1,7 @@
 {
   "name": "svelte-app",
   "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -13,10 +14,10 @@
     }
   },
   "lint-staged": {
-    "*.{css,json,md}": [
+    "*.{css,json,md,svelte,js,ts}": [
       "prettier --write"
     ],
-    "*.{js,jsx,ts,tsx}": [
+    "*.{js,ts}": [
       "eslint --fix"
     ]
   },
@@ -26,16 +27,17 @@
       "browser": true,
       "es6": true
     },
+    "parserOptions": {
+      "ecmaVersion": 2019,
+      "sourceType": "module"
+    },
     "plugins": [
       "svelte3"
     ],
     "extends": [
-      "@will-stone/eslint-config",
-      "@will-stone/eslint-config/node"
+      "eslint:recommended"
     ],
-    "rules": {
-      "simple-import-sort/sort": "off"
-    },
+    "rules": {},
     "overrides": [
       {
         "files": [
@@ -53,7 +55,6 @@
     "@fullhuman/postcss-purgecss": "^2.2.0",
     "@rollup/plugin-commonjs": "^12.0.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
-    "@will-stone/eslint-config": "^1.13.1",
     "@will-stone/prettier-config": "^3.1.0",
     "eslint": "^7.2.0",
     "eslint-plugin-svelte3": "^2.7.3",
@@ -62,6 +63,7 @@
     "postcss": "^7.0.32",
     "postcss-load-config": "^2.1.0",
     "prettier": "^2.0.5",
+    "prettier-plugin-svelte": "^1.1.0",
     "rollup": "^2.3.4",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-svelte": "^5.0.3",

@@ -2,6 +2,7 @@
   import './Globalcss.svelte'
 
   import stringHash from '@sindresorhus/string-hash'
+
   import InlineCode from './components/inline-code.svelte'
   import { addWaitToKeyframes } from './utils/add-wait-to-keyframes'
 
@@ -127,9 +128,7 @@
     rows="10" />
 
   {@html `<${'style'} class="block whitespace-pre font-mono bg-gray-900 text-gray-100 p-4 rounded">.${animationName} {
-  animation: ${animationName}_${animationNameHash} ${
-  duration + waitTime
-}s ${timingFunction} infinite;
+  animation: ${animationName}_${animationNameHash} ${duration + waitTime}s ${timingFunction} infinite;
   transform-origin: ${transformOriginX}% ${transformOriginY}%;
 }
 
