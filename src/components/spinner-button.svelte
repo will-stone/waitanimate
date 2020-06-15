@@ -15,7 +15,7 @@
   type="button"
   on:click={handleClick}
   class="flex-shrink-0 border-4 border-black w-12 h-12 text-3xl flex
-  items-center justify-center font-bold bg-black text-white"
+  items-center justify-center font-bold bg-black text-white hover:bg-red-900"
   style="line-height: 0;">
   <!-- Fullwidth Hyphen-Minus -->
   {#if direction === 'down'}

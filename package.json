@@ -52,6 +52,7 @@
   },
   "dependencies": {
     "@sindresorhus/string-hash": "^1.2.0",
+    "copy-text-to-clipboard": "^2.2.0",
     "sirv-cli": "^0.4.4"
   },
   "devDependencies": {
