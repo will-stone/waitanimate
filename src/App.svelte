@@ -3,7 +3,11 @@
 
   import stringHash from '@sindresorhus/string-hash'
 
+  import H4 from './components/h4.svelte'
   import InlineCode from './components/inline-code.svelte'
+  import InputBox from './components/input-box.svelte'
+  import SpinnerButton from './components/spinner-button.svelte'
+  import ValueButton from './components/value-button.svelte'
   import { addWaitToKeyframes } from './utils/add-wait-to-keyframes'
 
   let waitTime = 1
@@ -49,85 +53,115 @@
     JavaScript.
   </p>
 
-  <h4 class="section-font">Preview</h4>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
 
-  <p>
-    <span class="inline-block font-title text-6xl {animationName}">!</span>
-  </p>
+      <div class="mb-4">
+        <H4>Animation Name</H4>
 
-  <h3>Settings</h3>
+        <InputBox bind:value={animationName} />
+      </div>
 
-  <h4>Wait Time</h4>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
+          <H4>Wait Time</H4>
 
-  <button type="button" on:click={() => (waitTime = waitTime - 1)}>
-    <i class="fa fa-minus" />
-  </button>
-  <input type="number" bind:value={waitTime} class="text-gray-900" />
-  <button type="button" on:click={() => (waitTime = waitTime + 1)}>
-    <i class="fa fa-plus" />
-  </button>
+          <div class="flex">
+            <SpinnerButton bind:value={waitTime} direction="down" />
+            <InputBox bind:value={waitTime} />
+            <SpinnerButton bind:value={waitTime} direction="up" />
+          </div>
 
-  <h4>Name</h4>
+          <div class="text-xs font-bold text-red-300 text-center">Seconds</div>
+        </div>
 
-  <input type="text" bind:value={animationName} class="text-gray-900" />
+        <div>
+          <H4>Animation Duration</H4>
 
-  <h4>Animation Duration</h4>
+          <div class="flex">
+            <SpinnerButton bind:value={duration} direction="down" />
+            <InputBox bind:value={duration} />
+            <SpinnerButton bind:value={duration} direction="up" />
+          </div>
 
-  <button type="button" on:click={() => (duration = duration - 1)}>
-    <i class="fa fa-minus" />
-  </button>
-  <input type="number" bind:value={duration} class="text-gray-900" />
-  <button type="button" on:click={() => (duration = duration + 1)}>
-    <i class="fa fa-plus" />
-  </button>
+          <div class="text-xs font-bold text-red-300 text-center">Seconds</div>
+        </div>
+      </div>
 
-  <h4>Timing Function</h4>
+      <H4>Timing Function</H4>
 
-  <button type="button" on:click={() => (timingFunction = 'linear')}>
-    linear
-  </button>
-  <button type="button" on:click={() => (timingFunction = 'ease')}>ease</button>
-  <button type="button" on:click={() => (timingFunction = 'ease-in')}>
-    ease-in
-  </button>
-  <button type="button" on:click={() => (timingFunction = 'ease-out')}>
-    ease-out
-  </button>
-  <button type="button" on:click={() => (timingFunction = 'ease-in-out')}>
-    ease-in-out
-  </button>
+      <div class="flex flex-wrap emulated-flex-gap-1 mb-4">
+        <ValueButton bind:key={timingFunction} value="linear" />
+        <ValueButton bind:key={timingFunction} value="ease" />
+        <ValueButton bind:key={timingFunction} value="ease-in" />
+        <ValueButton bind:key={timingFunction} value="ease-out" />
+        <ValueButton bind:key={timingFunction} value="ease-in-out" />
+      </div>
 
-  <h4>Transform Origin</h4>
+      <H4 class="text-center">Transform Origin</H4>
 
-  <div>x</div>
+      <div class="grid grid-cols-2 gap-4 mb-4">
+        <div>
 
-  <button on:click={() => (transformOriginX = transformOriginX - 1)}>
-    <i class="fa fa-minus" />
-  </button>
-  <input type="number" bind:value={transformOriginX} class="text-gray-900" />
-  <button on:click={() => (transformOriginX = transformOriginX + 1)}>
-    <i class="fa fa-plus" />
-  </button>
+          <div>x</div>
 
-  <div>y</div>
+          <div class="flex">
+            <SpinnerButton bind:value={transformOriginX} direction="down" />
+            <InputBox bind:value={transformOriginX} />
+            <SpinnerButton bind:value={transformOriginX} direction="up" />
+          </div>
 
-  <button on:click={() => (transformOriginY = transformOriginY - 1)}>
-    <i class="fa fa-minus" />
-  </button>
-  <input type="number" bind:value={transformOriginY} class="text-gray-900" />
-  <button on:click={() => (transformOriginY = transformOriginY + 1)}>
-    <i class="fa fa-plus" />
-  </button>
+          <div class="text-xs font-bold text-red-300 text-center">%</div>
+        </div>
 
-  <h4>Keyframes</h4>
+        <div>
+          <div>y</div>
 
-  <textarea
-    bind:value={keyframes}
-    class="font-mono text-gray-900 text-sm w-full p-4 shadow-inner border-4
-    border-gray-900"
-    rows="10" />
+          <div class="flex">
+            <SpinnerButton bind:value={transformOriginY} direction="down" />
+            <InputBox bind:value={transformOriginY} />
+            <SpinnerButton bind:value={transformOriginY} direction="up" />
+          </div>
 
-  {@html `<${'style'} class="block whitespace-pre font-mono bg-gray-900 text-gray-100 p-4 rounded">.${animationName} {
+          <div class="text-xs font-bold text-red-300 text-center">%</div>
+        </div>
+      </div>
+
+      <H4>Keyframes</H4>
+
+      <textarea
+        bind:value={keyframes}
+        class="font-mono text-gray-900 text-sm w-full p-4 shadow-inner border-4
+        border-gray-900 bg-gray-100"
+        rows="10" />
+    </div>
+
+    <div class="relative">
+      <div class="absolute right-0 pl-4 pb-4 bg-red-800">
+        <div
+          class="w-32 p-4 text-center bg-red-900 text-white rounded shadow-md">
+          <span class="inline-block font-title text-6xl {animationName}">
+            !
+          </span>
+        </div>
+      </div>
+
+      <H4>Calculated Keyframes</H4>
+
+      <div
+        class="font-mono bg-red-900 text-white pt-4 pb-4 pl-4 rounded
+        overflow-auto text-sm md:text-xs lg:text-sm">
+        <div class="font-mono text-xs text-red-400">
+          /*
+          <br />
+          Generated by
+          <br />
+          waitanimate.wstone.io
+          <br />
+          */
+        </div>
+        {@html `<${'style'} class="block whitespace-pre">
+.${animationName} {
   animation: ${animationName}_${animationNameHash} ${duration + waitTime}s ${timingFunction} infinite;
   transform-origin: ${transformOriginX}% ${transformOriginY}%;
 }
@@ -136,4 +170,9 @@
 ${outputKeyFrames}
 }  
 </style>`}
+      </div>
+
+    </div>
+  </div>
+
 </main>
