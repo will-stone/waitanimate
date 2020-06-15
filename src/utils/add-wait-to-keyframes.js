@@ -1,5 +1,5 @@
-function roundToThreeDecimals(num) {
-  return +(Math.round(num + 'e+3') + 'e-3')
+function roundToThreeDecimals(number) {
+  return Number(`${Math.round(`${number}e+3`)}e-3`)
 }
 
 export function addWaitToKeyframes(keyframes, duration, waitTime) {
@@ -14,7 +14,7 @@ export function addWaitToKeyframes(keyframes, duration, waitTime) {
       // Remove all whitespace from frame, including line breaks
       .map((s) => s.replace(/\s/gu, ''))
       // Put closing frame bracket back
-      .map((s) => s + '}')
+      .map((s) => `${s}}`)
       // Split frame percentage and properties
       .map((s) => ({
         // Get number before opening frame and strip non-numeric
@@ -53,7 +53,7 @@ export function addWaitToKeyframes(keyframes, duration, waitTime) {
         // Add line break between frames
         .join('\n')
     )
-  } catch (error) {
+  } catch {
     return '  ERROR: Unable to parse keyframes, please try again.'
   }
 }

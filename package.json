@@ -4,15 +4,64 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
+    "lint": "eslint . --ignore-path .gitignore --ignore-pattern 'app/*'",
     "start": "sirv public"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{css,json,md}": [
+      "prettier --write"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "prettier": "@will-stone/prettier-config",
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "plugins": [
+      "svelte3"
+    ],
+    "extends": [
+      "@will-stone/eslint-config",
+      "@will-stone/eslint-config/node"
+    ],
+    "rules": {
+      "simple-import-sort/sort": "off"
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.svelte"
+        ],
+        "processor": "svelte3/svelte3"
+      }
+    ]
+  },
+  "dependencies": {
+    "@sindresorhus/string-hash": "^1.2.0",
+    "sirv-cli": "^0.4.4"
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^2.2.0",
     "@rollup/plugin-commonjs": "^12.0.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
+    "@will-stone/eslint-config": "^1.13.1",
     "@will-stone/prettier-config": "^3.1.0",
+    "eslint": "^7.2.0",
+    "eslint-plugin-svelte3": "^2.7.3",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.10",
     "postcss": "^7.0.32",
     "postcss-load-config": "^2.1.0",
+    "prettier": "^2.0.5",
     "rollup": "^2.3.4",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-svelte": "^5.0.3",
@@ -20,10 +69,5 @@
     "svelte": "^3.0.0",
     "svelte-preprocess": "^3.9.7",
     "tailwindcss": "^1.4.6"
-  },
-  "dependencies": {
-    "@sindresorhus/string-hash": "^1.2.0",
-    "sirv-cli": "^0.4.4"
-  },
-  "prettier": "@will-stone/prettier-config"
+  }
 }

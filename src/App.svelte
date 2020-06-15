@@ -1,8 +1,9 @@
 <script>
-  import { addWaitToKeyframes } from './utils/add-wait-to-keyframes'
   import './Globalcss.svelte'
-  import InlineCode from './components/inline-code.svelte'
+
   import stringHash from '@sindresorhus/string-hash'
+  import InlineCode from './components/inline-code.svelte'
+  import { addWaitToKeyframes } from './utils/add-wait-to-keyframes'
 
   let waitTime = 1
   let animationName = 'animationName'
@@ -57,11 +58,11 @@
 
   <h4>Wait Time</h4>
 
-  <button type="button" on:click={() => (waitTime -= 1)}>
+  <button type="button" on:click={() => (waitTime = waitTime - 1)}>
     <i class="fa fa-minus" />
   </button>
   <input type="number" bind:value={waitTime} class="text-gray-900" />
-  <button type="button" on:click={() => (waitTime += 1)}>
+  <button type="button" on:click={() => (waitTime = waitTime + 1)}>
     <i class="fa fa-plus" />
   </button>
 
@@ -71,11 +72,11 @@
 
   <h4>Animation Duration</h4>
 
-  <button type="button" on:click={() => (duration -= 1)}>
+  <button type="button" on:click={() => (duration = duration - 1)}>
     <i class="fa fa-minus" />
   </button>
   <input type="number" bind:value={duration} class="text-gray-900" />
-  <button type="button" on:click={() => (duration += 1)}>
+  <button type="button" on:click={() => (duration = duration + 1)}>
     <i class="fa fa-plus" />
   </button>
 
@@ -99,21 +100,21 @@
 
   <div>x</div>
 
-  <button on:click={() => (transformOriginX -= 1)}>
+  <button on:click={() => (transformOriginX = transformOriginX - 1)}>
     <i class="fa fa-minus" />
   </button>
   <input type="number" bind:value={transformOriginX} class="text-gray-900" />
-  <button on:click={() => (transformOriginX += 1)}>
+  <button on:click={() => (transformOriginX = transformOriginX + 1)}>
     <i class="fa fa-plus" />
   </button>
 
   <div>y</div>
 
-  <button on:click={() => (transformOriginY -= 1)}>
+  <button on:click={() => (transformOriginY = transformOriginY - 1)}>
     <i class="fa fa-minus" />
   </button>
   <input type="number" bind:value={transformOriginY} class="text-gray-900" />
-  <button on:click={() => (transformOriginY += 1)}>
+  <button on:click={() => (transformOriginY = transformOriginY + 1)}>
     <i class="fa fa-plus" />
   </button>
 
@@ -126,7 +127,9 @@
     rows="10" />
 
   {@html `<${'style'} class="block whitespace-pre font-mono bg-gray-900 text-gray-100 p-4 rounded">.${animationName} {
-  animation: ${animationName}_${animationNameHash} ${duration + waitTime}s ${timingFunction} infinite;
+  animation: ${animationName}_${animationNameHash} ${
+  duration + waitTime
+}s ${timingFunction} infinite;
   transform-origin: ${transformOriginX}% ${transformOriginY}%;
 }
 

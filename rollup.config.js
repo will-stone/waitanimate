@@ -1,11 +1,29 @@
-import svelte from 'rollup-plugin-svelte'
-import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
+import resolve from '@rollup/plugin-node-resolve'
+import { spawn } from 'child_process'
 import livereload from 'rollup-plugin-livereload'
+import svelte from 'rollup-plugin-svelte'
 import { terser } from 'rollup-plugin-terser'
 import sveltePreprocess from 'svelte-preprocess'
 
 const production = !process.env.ROLLUP_WATCH
+
+function serve() {
+  let started = false
+
+  return {
+    writeBundle() {
+      if (!started) {
+        started = true
+
+        spawn('npm', ['run', 'start', '--', '--dev'], {
+          stdio: ['ignore', 'inherit', 'inherit'],
+          shell: true,
+        })
+      }
+    },
+  }
+}
 
 export default {
   input: 'src/main.js',
@@ -54,21 +72,4 @@ export default {
   watch: {
     clearScreen: false,
   },
-}
-
-function serve() {
-  let started = false
-
-  return {
-    writeBundle() {
-      if (!started) {
-        started = true
-
-        require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-          stdio: ['ignore', 'inherit', 'inherit'],
-          shell: true,
-        })
-      }
-    },
-  }
 }
