@@ -5,7 +5,16 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
 
   whitelistPatterns: [/svelte-/u],
 
-  defaultExtractor: (content) => content.match(/[A-Za-z0-9-_:/]+/gu) || [],
+  defaultExtractor: (content) => {
+    const matches = content.match(/[A-Za-z0-9-_:/]+/gu) || []
+    return matches.map((match) => {
+      if (match.startsWith('class:')) {
+        return match.split(':')[1]
+      }
+
+      return match
+    })
+  },
 })
 
 const production = !process.env.ROLLUP_WATCH

@@ -42,20 +42,20 @@
   </h1>
 
   <p class="text-xl text-justify font-semibold mb-16">
-    CSS doesn't provide an easy way to pause an animation before it loops around
+    CSS doesn't provide a property to pause an animation before it loops around
     again. Yes, there's
     <InlineCode>animation-delay</InlineCode>
-    but this simply denotes a delay at the very start of the animation, i.e on
-    load.
+    but this simply denotes a delay at the very start of the animation, when the
+    element is first shown.
     <span class="font-title font-normal">WAIT! Animate</span>
-    provides an easy way to calculate the keyframe percentages so that you can
-    insert a delay between each animation iteration using pure CSS, no
-    JavaScript.
+    calculates updated keyframe percentages given a
+    <i>wait</i>
+    time meaning you can insert a delay between each animation iteration using
+    pure CSS, no JavaScript.
   </p>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <div>
-
       <div class="mb-4">
         <H4>Animation Name</H4>
 
@@ -131,8 +131,8 @@
 
       <textarea
         bind:value={keyframes}
-        class="font-mono text-gray-900 text-sm w-full p-4 shadow-inner border-4
-        border-gray-900 bg-gray-100"
+        class="font-mono text-black text-sm w-full p-4 shadow-inner border-4
+        border-black bg-white"
         rows="10" />
     </div>
 
