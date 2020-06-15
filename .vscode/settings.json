@@ -1,11 +1,11 @@
 {
   "workbench.colorCustomizations": {
-    "statusBar.background": "#e73c38",
-    "statusBar.border": "#e73c38",
+    "statusBar.background": "#9d2b28",
+    "statusBar.border": "#9d2b28",
     "statusBar.foreground": "#e7e7e7",
-    "statusBarItem.hoverBackground": "#ec6965"
+    "statusBarItem.hoverBackground": "#c63632"
   },
-  "peacock.color": "#E73C38",
+  "peacock.color": "#9D2B28",
   "eslint.enable": true,
   "eslint.validate": ["javascript", "javascriptreact", "svelte"]
 }
