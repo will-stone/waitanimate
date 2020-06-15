@@ -1,7 +1,7 @@
 const tailwind = require('tailwindcss')
 
 const purgecss = require('@fullhuman/postcss-purgecss')({
-  content: ['./src/**/*.html', './src/**/*.svelte'],
+  content: ['./public/index.html', './src/**/*.html', './src/**/*.svelte'],
 
   whitelistPatterns: [/svelte-/u],
 
