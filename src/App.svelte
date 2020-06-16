@@ -6,7 +6,7 @@
 
   import InputBox from './components/input-box.svelte'
   import KeyValueButton from './components/key-value-button.svelte'
-  import SpinnerButton from './components/spinner-button.svelte'
+  import SpinnerInput from './components/spinner-input.svelte'
   import { addWaitToKeyframes } from './utils/add-wait-to-keyframes'
 
   let waitTime = 1
@@ -62,11 +62,7 @@ ${outputKeyFrames}
       <div>
         <h4 class="mb-2 text-red-200 font-bold">Wait Time</h4>
 
-        <div class="flex">
-          <SpinnerButton bind:value={waitTime} direction="down" />
-          <InputBox bind:value={waitTime} border="y" />
-          <SpinnerButton bind:value={waitTime} direction="up" />
-        </div>
+        <SpinnerInput bind:value={waitTime} />
 
         <div class="text-xs font-bold text-red-300 text-center">Seconds</div>
       </div>
@@ -74,11 +70,7 @@ ${outputKeyFrames}
       <div>
         <h4 class="mb-2 text-red-200 font-bold">Animation Duration</h4>
 
-        <div class="flex">
-          <SpinnerButton bind:value={duration} direction="down" />
-          <InputBox bind:value={duration} border="y" />
-          <SpinnerButton bind:value={duration} direction="up" />
-        </div>
+        <SpinnerInput bind:value={duration} />
 
         <div class="text-xs font-bold text-red-300 text-center">Seconds</div>
       </div>
@@ -99,11 +91,7 @@ ${outputKeyFrames}
 
         <h4 class="mb-2 text-red-200 font-bold">Transform Origin X</h4>
 
-        <div class="flex">
-          <SpinnerButton bind:value={transformOriginX} direction="down" />
-          <InputBox bind:value={transformOriginX} border="y" />
-          <SpinnerButton bind:value={transformOriginX} direction="up" />
-        </div>
+        <SpinnerInput bind:value={transformOriginX} />
 
         <div class="text-xs font-bold text-red-300 text-center">%</div>
       </div>
@@ -111,11 +99,7 @@ ${outputKeyFrames}
       <div>
         <h4 class="mb-2 text-red-200 font-bold">Transform Origin Y</h4>
 
-        <div class="flex">
-          <SpinnerButton bind:value={transformOriginY} direction="down" />
-          <InputBox bind:value={transformOriginY} border="y" />
-          <SpinnerButton bind:value={transformOriginY} direction="up" />
-        </div>
+        <SpinnerInput bind:value={transformOriginY} />
 
         <div class="text-xs font-bold text-red-300 text-center">%</div>
       </div>
@@ -141,7 +125,7 @@ ${outputKeyFrames}
 
     <div
       class="font-mono bg-red-900 text-white p-4 mb-4 rounded overflow-auto
-      text-sm md:text-xs lg:text-sm">
+      text-xs">
       {@html `<${'style'} class="block whitespace-pre">${output}</style>`}
     </div>
 
