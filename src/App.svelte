@@ -4,8 +4,6 @@
   import stringHash from '@sindresorhus/string-hash'
   import copy from 'copy-text-to-clipboard'
 
-  import H4 from './components/h4.svelte'
-  import InlineCode from './components/inline-code.svelte'
   import InputBox from './components/input-box.svelte'
   import SpinnerButton from './components/spinner-button.svelte'
   import ValueButton from './components/value-button.svelte'
@@ -50,369 +48,109 @@ waitanimate.wstone.io
 @keyframes ${className}_${classNameHash} {
 ${outputKeyFrames}
 }`
-
-  function handleClickCopy(text) {
-    copy(text)
-  }
-
-  const mixin = `@mixin waitAnimate($options: ()) {
-  $options: map-merge((
-    animationName: waitAnimate,
-    duration: 1,
-    waitTime: 0,
-    timingFunction: linear,
-    iterationCount: infinite
-  ), $options);
-
-  $name: map-get($options, animationName);
-  $kf: map-get($options, keyframes);
-  $kfLength: length($kf);
-  $duration: map-get($options, duration);
-  $waitTime: map-get($options, waitTime);
-  $timingFunction: map-get($options, timingFunction);
-  $iterationCount: map-get($options, iterationCount);
-  $counter: 1; // index of 'each'
-
-  @keyframes #{$name} {
-    @each $frame, $prop in $kf {
-      #{$frame * $duration / ($duration + $waitTime)}% {
-        @each $k, $v in $prop {
-          #{$k}: #{$v}
-        }
-      }
-      // if last in loop and waitTime is not 0, add the last frame as 100% (this is what creates the pause)
-      @if $counter == $kfLength and $waitTime > 0 {
-        100% {
-          @each $k, $v in $prop {
-            #{$k}: #{$v}
-          }
-        }
-      }
-      $counter: $counter+1;
-    }
-  }
-
-  .#{$name} {
-    animation: #{$name} #{$duration + $waitTime}s #{$timingFunction} #{$iterationCount};
-  }
-}`
-
-  const include = `@include waitAnimate(
-  (
-    animationName: animName,
-    keyframes: (
-      0: (
-        transform: scale(1),
-        background-color: blue
-      ),
-      50: (
-        transform: scale(2),
-        background-color: green
-      ),
-      100: (
-        transform: scale(3),
-        background-color: red
-      )
-    ),
-    duration: 2,
-    waitTime: 1,
-    timingFunction: ease,
-    iterationCount: infinite
-  )
-);`
 </script>
 
-<main class="container py-16">
-  <h1 class="font-title text-6xl text-center leading-none mb-16">
-    <span class="text-yellow-400">WAIT!</span>
-    <span>Animate</span>
-  </h1>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+  <div>
+    <div class="mb-4">
+      <h4 class="mb-2 text-red-200 font-bold">Class Name</h4>
 
-  <p class="text-xl text-justify font-semibold mb-16">
-    CSS doesn't provide a property to pause an animation before it loops around
-    again. Yes, there's
-    <InlineCode>animation-delay</InlineCode>
-    but this simply denotes a delay at the very start of the animation, when the
-    element is first shown.
-    <span class="font-title font-normal">WAIT! Animate</span>
-    calculates updated keyframe percentages given a
-    <i>wait</i>
-    time meaning you can insert a delay between each animation iteration using
-    pure CSS, without JavaScript.
-  </p>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-    <div>
-      <div class="mb-4">
-        <H4>Class Name</H4>
-
-        <InputBox bind:value={className} />
-      </div>
-
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        <div>
-          <H4>Wait Time</H4>
-
-          <div class="flex">
-            <SpinnerButton bind:value={waitTime} direction="down" side="left" />
-            <InputBox bind:value={waitTime} border="y" />
-            <SpinnerButton bind:value={waitTime} direction="up" side="right" />
-          </div>
-
-          <div class="text-xs font-bold text-red-300 text-center">Seconds</div>
-        </div>
-
-        <div>
-          <H4>Animation Duration</H4>
-
-          <div class="flex">
-            <SpinnerButton bind:value={duration} direction="down" />
-            <InputBox bind:value={duration} border="y" />
-            <SpinnerButton bind:value={duration} direction="up" />
-          </div>
-
-          <div class="text-xs font-bold text-red-300 text-center">Seconds</div>
-        </div>
-      </div>
-
-      <H4>Timing Function</H4>
-
-      <div class="flex flex-wrap emulated-flex-gap-1 mb-4">
-        <ValueButton bind:key={timingFunction} value="linear" />
-        <ValueButton bind:key={timingFunction} value="ease" />
-        <ValueButton bind:key={timingFunction} value="ease-in" />
-        <ValueButton bind:key={timingFunction} value="ease-out" />
-        <ValueButton bind:key={timingFunction} value="ease-in-out" />
-      </div>
-
-      <H4>Transform Origin</H4>
-
-      <div class="grid grid-cols-2 gap-4 mb-4">
-        <div>
-
-          <div>x</div>
-
-          <div class="flex">
-            <SpinnerButton bind:value={transformOriginX} direction="down" />
-            <InputBox bind:value={transformOriginX} border="y" />
-            <SpinnerButton bind:value={transformOriginX} direction="up" />
-          </div>
-
-          <div class="text-xs font-bold text-red-300 text-center">%</div>
-        </div>
-
-        <div>
-          <div>y</div>
-
-          <div class="flex">
-            <SpinnerButton bind:value={transformOriginY} direction="down" />
-            <InputBox bind:value={transformOriginY} border="y" />
-            <SpinnerButton bind:value={transformOriginY} direction="up" />
-          </div>
-
-          <div class="text-xs font-bold text-red-300 text-center">%</div>
-        </div>
-      </div>
-
-      <H4>Keyframes</H4>
-
-      <textarea
-        bind:value={keyframes}
-        class="font-mono text-black text-sm w-full p-4 shadow-inner border-4
-        border-black bg-white overflow-auto whitespace-pre"
-        rows="5" />
+      <InputBox bind:value={className} />
     </div>
 
-    <div class="relative">
-      <div class="absolute right-0 pl-4 pb-4 bg-red-800">
-        <div
-          class="w-32 p-4 text-center bg-red-900 text-white rounded shadow-md">
-          <span class="inline-block font-title text-6xl {className}">!</span>
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div>
+        <h4 class="mb-2 text-red-200 font-bold">Wait Time</h4>
+
+        <div class="flex">
+          <SpinnerButton bind:value={waitTime} direction="down" />
+          <InputBox bind:value={waitTime} border="y" />
+          <SpinnerButton bind:value={waitTime} direction="up" />
         </div>
+
+        <div class="text-xs font-bold text-red-300 text-center">Seconds</div>
       </div>
 
-      <H4>Calculated Keyframes</H4>
+      <div>
+        <h4 class="mb-2 text-red-200 font-bold">Animation Duration</h4>
 
-      <div
-        class="font-mono bg-red-900 text-white p-4 mb-4 rounded overflow-auto
-        text-sm md:text-xs lg:text-sm">
-        {@html `<${'style'} class="block whitespace-pre">${output}</style>`}
+        <div class="flex">
+          <SpinnerButton bind:value={duration} direction="down" />
+          <InputBox bind:value={duration} border="y" />
+          <SpinnerButton bind:value={duration} direction="up" />
+        </div>
+
+        <div class="text-xs font-bold text-red-300 text-center">Seconds</div>
       </div>
-
-      <button
-        on:click={() => handleClickCopy(output)}
-        type="button"
-        class="border-4 border-black h-12 text-lg flex items-center
-        justify-center font-bold bg-black text-white px-2 ml-auto
-        hover:bg-red-900">
-        Copy To Clipboard
-      </button>
     </div>
+
+    <h4 class="mb-2 text-red-200 font-bold">Timing Function</h4>
+
+    <div class="flex flex-wrap emulated-flex-gap-1 mb-4">
+      <ValueButton bind:key={timingFunction} value="linear" />
+      <ValueButton bind:key={timingFunction} value="ease" />
+      <ValueButton bind:key={timingFunction} value="ease-in" />
+      <ValueButton bind:key={timingFunction} value="ease-out" />
+      <ValueButton bind:key={timingFunction} value="ease-in-out" />
+    </div>
+
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div>
+
+        <h4 class="mb-2 text-red-200 font-bold">Transform Origin X</h4>
+
+        <div class="flex">
+          <SpinnerButton bind:value={transformOriginX} direction="down" />
+          <InputBox bind:value={transformOriginX} border="y" />
+          <SpinnerButton bind:value={transformOriginX} direction="up" />
+        </div>
+
+        <div class="text-xs font-bold text-red-300 text-center">%</div>
+      </div>
+
+      <div>
+        <h4 class="mb-2 text-red-200 font-bold">Transform Origin Y</h4>
+
+        <div class="flex">
+          <SpinnerButton bind:value={transformOriginY} direction="down" />
+          <InputBox bind:value={transformOriginY} border="y" />
+          <SpinnerButton bind:value={transformOriginY} direction="up" />
+        </div>
+
+        <div class="text-xs font-bold text-red-300 text-center">%</div>
+      </div>
+    </div>
+
+    <h4 class="mb-2 text-red-200 font-bold">Keyframes</h4>
+
+    <textarea
+      bind:value={keyframes}
+      class="font-mono text-black text-sm w-full p-4 shadow-inner border-4
+      border-black bg-white overflow-auto whitespace-pre"
+      rows="5" />
   </div>
 
-  <h2 class="font-title text-center text-2xl mb-4">SCSS Mixin</h2>
+  <div class="relative">
+    <div class="absolute right-0 pl-4 pb-4 bg-red-800">
+      <div class="w-32 p-4 text-center bg-red-900 text-white rounded shadow-md">
+        <span class="inline-block font-title text-6xl {className}">!</span>
+      </div>
+    </div>
 
-  <div class="mb-4">
+    <h4 class="mb-2 text-red-200 font-bold">Calculated Keyframes</h4>
+
     <div
-      class="whitespace-pre font-mono p-4 mb-4 bg-red-900 rounded
-      overflow-x-auto text-sm">
-      {mixin}
+      class="font-mono bg-red-900 text-white p-4 mb-4 rounded overflow-auto
+      text-sm md:text-xs lg:text-sm">
+      {@html `<${'style'} class="block whitespace-pre">${output}</style>`}
     </div>
 
     <button
-      on:click={() => handleClickCopy(mixin)}
+      on:click={() => copy(output)}
       type="button"
       class="border-4 border-black h-12 text-lg flex items-center justify-center
       font-bold bg-black text-white px-2 ml-auto hover:bg-red-900">
       Copy To Clipboard
     </button>
   </div>
-
-  <div class="grid grid-cols-2 gap-4 mb-8">
-    <div>
-      <H4>Include:</H4>
-
-      <div
-        class="whitespace-pre font-mono p-4 mb-4 bg-red-900 rounded
-        overflow-x-auto text-sm">
-        {include}
-      </div>
-
-      <button
-        on:click={() => handleClickCopy(include)}
-        type="button"
-        class="border-4 border-black h-12 text-lg flex items-center
-        justify-center font-bold bg-black text-white px-2 ml-auto
-        hover:bg-red-900">
-        Copy To Clipboard
-      </button>
-    </div>
-
-    <div>
-      <H4>Output:</H4>
-
-      <div
-        class="whitespace-pre font-mono p-4 mb-4 bg-black rounded
-        overflow-x-auto text-sm">
-        {`@keyframes animName {
-  0% {
-    transform: scale(1);
-    background-color: blue;
-  }
-  33.33333333% {
-    transform: scale(2);
-    background-color: green;
-  }
-  66.66666667% {
-    transform: scale(3);
-    background-color: red;
-  }
-  100% {
-    transform: scale(3);
-    background-color: red;
-  }
-}
-
-.animName {
-  animation: animName 2s ease infinite;
-}`}
-      </div>
-    </div>
-  </div>
-
-  <p class="mb-4">
-    You'll notice that you need to change your keyframes rule to a SASS map
-    object. I was unable to find a solution that could manipulate a standard
-    keyframes rule. If you know of a way to do this, please let me know.
-  </p>
-
-  <p class="mb-4">
-    <InlineCode>@include waitAnimate((options));</InlineCode>
-  </p>
-
-  <div class="mb-8">
-    <table>
-      <thead class="font-bold">
-        <tr>
-          <td class="p-2">Option</td>
-          <td class="p-2">Description</td>
-          <td class="p-2">Type</td>
-          <td class="p-2">Required?</td>
-          <td class="p-2">Default</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="bg-red-900">
-          <td class="p-2 font-bold">animationName</td>
-          <td class="p-2">The class name of your animation.</td>
-          <td class="p-2">String</td>
-          <td class="p-2">No</td>
-          <td class="p-2">waitAnimate</td>
-        </tr>
-        <tr>
-          <td class="p-2 font-bold">keyframes</td>
-          <td class="p-2">The 0% to 100% animation rule.</td>
-          <td class="p-2">SASS map object</td>
-          <td class="p-2">Yes</td>
-          <td />
-        </tr>
-        <tr class="bg-red-900">
-          <td class="p-2 font-bold">duration</td>
-          <td class="p-2">
-            The length of the animation in seconds (wait time will be added to
-            this).
-          </td>
-          <td class="p-2 font-bold">Number</td>
-          <td class="p-2">No</td>
-          <td class="p-2">1</td>
-        </tr>
-        <tr>
-          <td class="p-2 font-bold">waitTime</td>
-          <td class="p-2">
-            The amount of pause time in seconds at the end of the animation.
-          </td>
-          <td class="p-2 font-bold">Number</td>
-          <td class="p-2">No</td>
-          <td class="p-2">0</td>
-        </tr>
-        <tr class="bg-red-900">
-          <td class="p-2 font-bold">timingFunction</td>
-          <td class="p-2">The speed curve of the animation.</td>
-          <td class="p-2">String</td>
-          <td class="p-2">No</td>
-          <td class="p-2">linear</td>
-        </tr>
-        <tr>
-          <td class="p-2 font-bold">iterationCount</td>
-          <td class="p-2">
-            The number of times the animation should be played.
-          </td>
-          <td class="p-2">String</td>
-          <td class="p-2">No</td>
-          <td class="p-2">infinite</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</main>
-
-<hr class="mb-16 border-red-900" />
-
-<footer class="text-center pb-16">
-  <p class="mb-8">
-    <span class="font-title">WAIT! Animate</span>
-    is a project by
-    <a href="http://wstone.io" class="underline">Will Stone</a>
-  </p>
-
-  <H4>Credits</H4>
-
-  <ul class="list-unstyled">
-    <li>
-      <a href="https://github.com/vernnobile" class="hover:underline">
-        <span class="font-title">Bowlby One SC</span>
-        font by Vernon Adams
-      </a>
-    </li>
-  </ul>
-</footer>
+</div>
