@@ -5,8 +5,8 @@
   import copy from 'copy-text-to-clipboard'
 
   import InputBox from './components/input-box.svelte'
+  import KeyValueButton from './components/key-value-button.svelte'
   import SpinnerButton from './components/spinner-button.svelte'
-  import ValueButton from './components/value-button.svelte'
   import { addWaitToKeyframes } from './utils/add-wait-to-keyframes'
 
   let waitTime = 1
@@ -87,11 +87,11 @@ ${outputKeyFrames}
     <h4 class="mb-2 text-red-200 font-bold">Timing Function</h4>
 
     <div class="flex flex-wrap emulated-flex-gap-1 mb-4">
-      <ValueButton bind:key={timingFunction} value="linear" />
-      <ValueButton bind:key={timingFunction} value="ease" />
-      <ValueButton bind:key={timingFunction} value="ease-in" />
-      <ValueButton bind:key={timingFunction} value="ease-out" />
-      <ValueButton bind:key={timingFunction} value="ease-in-out" />
+      <KeyValueButton bind:key={timingFunction} value="linear" />
+      <KeyValueButton bind:key={timingFunction} value="ease" />
+      <KeyValueButton bind:key={timingFunction} value="ease-in" />
+      <KeyValueButton bind:key={timingFunction} value="ease-out" />
+      <KeyValueButton bind:key={timingFunction} value="ease-in-out" />
     </div>
 
     <div class="grid grid-cols-2 gap-4 mb-4">
