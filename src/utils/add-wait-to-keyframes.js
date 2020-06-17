@@ -16,11 +16,22 @@ export function addWaitToKeyframes(keyframes, duration, waitTime) {
       // Put closing frame bracket back
       .map((s) => `${s}}`)
       // Split frame percentage and properties
-      .map((s) => ({
-        // Get number before opening frame and strip non-numeric
-        frame: Number(s.split('%')[0]),
-        properties: s.match(/\{(.*)\}/u)[1],
-      }))
+      .map((s) => {
+        // Get number before opening frame and strip percentage
+        const frameValue = s.split('{')[0].trim().replace('%', '')
+        // Parse to numeric
+        let frame = Number(frameValue)
+        if (frameValue === 'from') {
+          frame = 0
+        } else if (frameValue === 'to') {
+          frame = 100
+        }
+
+        return {
+          frame,
+          properties: s.match(/\{(.*)\}/u)[1],
+        }
+      })
 
     return (
       [
