@@ -116,9 +116,7 @@
 
         <h2 class="font-title text-center text-2xl mb-4">SCSS Mixin</h2>
 
-        <pre
-          class="font-mono p-4 mb-4 bg-red-900 rounded overflow-x-auto text-sm"
-        >
+        <pre class="pt-4 px-4 mb-4 bg-red-900 rounded overflow-x-auto text-xs">
 @mixin waitAnimate($options: ()) {
   $options: map-merge((
     animationName: waitAnimate,
@@ -160,16 +158,13 @@
     animation: #{$name} #{$duration + $waitTime}s #{$timingFunction} #{$iterationCount};
   }
 }
-</pre
-        >
+        </pre>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
           <div>
             <h4 class="mb-2 text-red-200 font-bold">Include:</h4>
 
-            <pre
-              class="whitespace-pre font-mono p-4 mb-4 bg-red-900 rounded overflow-x-auto text-sm"
-            >
+            <pre class="pt-4 px-4 bg-red-900 rounded overflow-x-auto text-xs">
 @include waitAnimate(
   (
     animationName: animName,
@@ -193,16 +188,13 @@
     iterationCount: infinite
   )
 );
-      </pre
-            >
+            </pre>
           </div>
 
           <div>
             <h4 class="mb-2 text-red-200 font-bold">Output:</h4>
 
-            <pre
-              class="whitespace-pre font-mono p-4 mb-4 bg-black rounded overflow-x-auto text-sm"
-            >
+            <pre class="pt-4 px-4 bg-black rounded overflow-x-auto text-xs">
 @keyframes animName {
   0% {
     transform: scale(1);
@@ -225,8 +217,7 @@
 .animName {
   animation: animName 2s ease infinite;
 }
-</pre
-            >
+            </pre>
           </div>
         </div>
 
