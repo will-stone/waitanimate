@@ -1,6 +1,6 @@
 # WAIT! Animate
 
-[waitanimate.wstone.io](https://waitanimate.wstone.io/)
+[waitanimate.wstone.uk](https://waitanimate.wstone.uk/)
 
 ## Development
 
