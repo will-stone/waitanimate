@@ -1,7 +1,17 @@
+/**
+ * @param {number} number
+ * @returns number
+ */
 function roundToThreeDecimals(number) {
-  return Number(`${Math.round(`${number}e+3`)}e-3`)
+  return Number(`${Math.round(Number(`${number}e+3`))}e-3`)
 }
 
+/**
+ * @param {string} keyframes
+ * @param {string} duration
+ * @param {string} waitTime
+ * @returns
+ */
 export function addWaitToKeyframes(keyframes, duration, waitTime) {
   try {
     const asArray = keyframes
@@ -29,16 +39,17 @@ export function addWaitToKeyframes(keyframes, duration, waitTime) {
 
         return {
           frame,
-          properties: s.match(/\{(.*)\}/u)[1],
+          properties: s.match(/\{(.*)\}/u)?.[1],
         }
       })
 
     return (
       [
         ...asArray.map((f) => ({
-          // Reduce frame percentages to accomodate wait and duration
+          // Reduce frame percentages to accommodate wait and duration
           frame: roundToThreeDecimals(
-            (f.frame * duration) / (duration + waitTime),
+            (f.frame * Number(duration)) /
+              (Number(duration) + Number(waitTime)),
           ),
           properties: f.properties,
         })),
@@ -52,7 +63,7 @@ export function addWaitToKeyframes(keyframes, duration, waitTime) {
         .map((f) => {
           const parsedProperties = f.properties
             // Separate properties
-            .split(';')
+            ?.split(';')
             // Add lines breaks between properties and indent
             .join(';\n    ')
             // Add space between property name and value

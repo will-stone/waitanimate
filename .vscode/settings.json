@@ -1,12 +1,10 @@
 {
   "workbench.colorCustomizations": {
     "sash.hoverBorder": "#c63632",
-    "titleBar.activeBackground": "#9d2b28",
-    "titleBar.activeForeground": "#e7e7e7",
-    "titleBar.inactiveBackground": "#9d2b2899",
-    "titleBar.inactiveForeground": "#e7e7e799"
+    "titleBar.activeForeground": "#9d2b28",
+    "titleBar.inactiveForeground": "#9d2b2899"
   },
-  "peacock.color": "#9D2B28",
   "eslint.enable": true,
-  "eslint.validate": ["javascript", "javascriptreact", "svelte"]
+  "eslint.validate": ["javascript", "javascriptreact", "svelte"],
+  "eslint.experimental.useFlatConfig": true
 }

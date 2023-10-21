@@ -1,80 +1,48 @@
 {
-  "name": "svelte-app",
-  "version": "1.0.0",
-  "license": "MIT",
+  "name": "wait-animate",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "lint": "eslint . --ignore-path .gitignore --ignore-pattern 'app/*'",
-    "start": "sirv public"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "build": "vite build",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
+    "dev": "vite dev",
+    "format": "prettier --write .",
+    "lint": "prettier --check . && eslint .",
+    "prepare": "husky install",
+    "preview": "vite preview"
   },
   "lint-staged": {
-    "*.{css,json,md,svelte,js,ts}": [
-      "prettier --write"
-    ],
-    "*.{js,ts}": [
+    "*.{js,jsx,ts,tsx,svelte}": [
       "eslint --fix"
-    ]
-  },
-  "prettier": "@will-stone/prettier-config",
-  "eslintConfig": {
-    "env": {
-      "browser": true
-    },
-    "parserOptions": {
-      "ecmaVersion": 2019,
-      "sourceType": "module"
-    },
-    "plugins": [
-      "svelte3"
     ],
-    "extends": [
-      "@will-stone/eslint-config",
-      "@will-stone/eslint-config/node"
-    ],
-    "rules": {},
-    "overrides": [
-      {
-        "files": [
-          "*.svelte"
-        ],
-        "rules": {
-          "prettier/prettier": "off"
-        },
-        "processor": "svelte3/svelte3"
-      }
+    "*.{css,json,md}": [
+      "prettier --write"
     ]
   },
   "dependencies": {
-    "@sindresorhus/string-hash": "^1.2.0",
-    "copy-text-to-clipboard": "^2.2.0",
-    "sirv-cli": "^0.4.4"
+    "@sindresorhus/string-hash": "^2.0.0",
+    "copy-text-to-clipboard": "^3.2.0"
   },
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^2.2.0",
-    "@rollup/plugin-commonjs": "^12.0.0",
-    "@rollup/plugin-node-resolve": "^8.0.0",
-    "@will-stone/eslint-config": "^1.13.1",
-    "@will-stone/prettier-config": "^3.1.0",
-    "eslint": "^7.2.0",
-    "eslint-plugin-svelte3": "^2.7.3",
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.10",
-    "postcss": "^7.0.32",
-    "postcss-load-config": "^2.1.0",
-    "prettier": "^2.0.5",
-    "prettier-plugin-svelte": "^1.1.0",
-    "rollup": "^2.3.4",
-    "rollup-plugin-livereload": "^1.0.0",
-    "rollup-plugin-svelte": "^5.0.3",
-    "rollup-plugin-terser": "^5.1.2",
-    "svelte": "^3.0.0",
-    "svelte-preprocess": "^3.9.7",
-    "tailwindcss": "^1.4.6"
+    "@sveltejs/adapter-auto": "^2.1.0",
+    "@sveltejs/adapter-static": "^2.0.3",
+    "@sveltejs/kit": "^1.26.0",
+    "@will-stone/prettier-config": "^7.0.1",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-svelte": "^2.34.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
+    "postcss": "^8.4.31",
+    "prettier": "^3.0.3",
+    "prettier-plugin-svelte": "^3.0.3",
+    "svelte": "^4.2.2",
+    "svelte-check": "^3.5.2",
+    "tailwindcss": "^3.3.3",
+    "typescript": "^5.2.2",
+    "vite": "^4.5.0"
   }
 }

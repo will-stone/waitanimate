@@ -1,7 +1,6 @@
-const plugin = require('tailwindcss/plugin')
-
-module.exports = {
-  purge: [],
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
     screens: {
       sm: '640px',
@@ -11,7 +10,7 @@ module.exports = {
     container: {
       center: true,
       padding: {
-        default: '1rem',
+        DEFAULT: '1rem',
         sm: '2rem',
       },
     },
@@ -21,30 +20,5 @@ module.exports = {
       },
     },
   },
-  variants: {
-    gridTemplateColumns: ['responsive'],
-  },
-  plugins: [
-    plugin(({ addUtilities, theme }) => {
-      const spacerValues = Object.entries(theme('padding'))
-
-      const addedUtils = {}
-
-      for (const [k, v] of spacerValues) {
-        addedUtils[`.emulated-flex-gap-${k} > *`] = {
-          marginTop: v,
-          marginLeft: v,
-        }
-        addedUtils[`.emulated-flex-gap-${k}`] = {
-          display: 'inline-flex',
-          flexWrap: 'wrap',
-          marginTop: `-${v}`,
-          marginLeft: `-${v}`,
-          width: `calc(100% + ${v})`,
-        }
-      }
-
-      addUtilities(addedUtils)
-    }),
-  ],
+  plugins: [],
 }

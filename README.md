@@ -1,34 +1,41 @@
-# WAIT! Animate
+# create-svelte
 
-[waitanimate.wstone.uk](https://waitanimate.wstone.uk/)
+Everything you need to build a Svelte project, powered by
+[`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-## Development
+## Creating a project
 
-Install the dependencies...
-
-```bash
-yarn
-```
-
-...then start [Rollup](https://rollupjs.org):
+If you're seeing this, you've probably already done this step. Congrats!
 
 ```bash
-yarn dev
+# create a new project in the current directory
+npm create svelte@latest
+
+# create a new project in my-app
+npm create svelte@latest my-app
 ```
 
-Navigate to [localhost:5000](http://localhost:5000). You should see the app
-running.
+## Developing
 
-By default, the server will only respond to requests from localhost. To allow
-connections from other computers, edit the `sirv` commands in package.json to
-include the option `--host 0.0.0.0`.
-
-## Building and running in production mode
-
-To create an optimised version of the app:
+Once you've created a project and installed dependencies with `npm install` (or
+`pnpm install` or `yarn`), start a development server:
 
 ```bash
-yarn build
+npm run dev
+
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
 ```
 
-You can run the newly built app with `yarn start`.
+## Building
+
+To create a production version of your app:
+
+```bash
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an
+> [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.

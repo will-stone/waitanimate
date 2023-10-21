@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -23,56 +23,60 @@
     <link
       rel="apple-touch-icon"
       sizes="57x57"
-      href="images/apple-touch-icon-57x57.png?v=GvvwO0J8L"
+      href="%sveltekit.assets%/images/apple-touch-icon-57x57.png?v=GvvwO0J8L"
     />
     <link
       rel="apple-touch-icon"
       sizes="60x60"
-      href="images/apple-touch-icon-60x60.png?v=GvvwO0J8L"
+      href="%sveltekit.assets%/images/apple-touch-icon-60x60.png?v=GvvwO0J8L"
     />
     <link
       rel="apple-touch-icon"
       sizes="72x72"
-      href="images/apple-touch-icon-72x72.png?v=GvvwO0J8L"
+      href="%sveltekit.assets%/images/apple-touch-icon-72x72.png?v=GvvwO0J8L"
     />
     <link
       rel="apple-touch-icon"
       sizes="76x76"
-      href="images/apple-touch-icon-76x76.png?v=GvvwO0J8L"
+      href="%sveltekit.assets%/images/apple-touch-icon-76x76.png?v=GvvwO0J8L"
     />
     <link
       rel="icon"
       type="image/png"
-      href="images/favicon-32x32.png?v=GvvwO0J8L"
+      href="%sveltekit.assets%/images/favicon-32x32.png?v=GvvwO0J8L"
       sizes="32x32"
     />
     <link
       rel="icon"
       type="image/png"
-      href="images/favicon-96x96.png?v=GvvwO0J8L"
+      href="%sveltekit.assets%/images/favicon-96x96.png?v=GvvwO0J8L"
       sizes="96x96"
     />
     <link
       rel="icon"
       type="image/png"
-      href="images/favicon-16x16.png?v=GvvwO0J8L"
+      href="%sveltekit.assets%/images/favicon-16x16.png?v=GvvwO0J8L"
       sizes="16x16"
     />
-    <link rel="manifest" href="images/manifest.json?v=GvvwO0J8L" />
+    <link
+      rel="manifest"
+      href="%sveltekit.assets%/images/manifest.json?v=GvvwO0J8L"
+    />
     <link
       rel="mask-icon"
-      href="images/safari-pinned-tab.svg?v=GvvwO0J8L"
+      href="%sveltekit.assets%/images/safari-pinned-tab.svg?v=GvvwO0J8L"
       color="#df3e39"
     />
-    <link rel="shortcut icon" href="images/favicon.ico?v=GvvwO0J8L" />
+    <link
+      rel="shortcut icon"
+      href="%sveltekit.assets%/favicon.ico?v=GvvwO0J8L"
+    />
     <meta name="msapplication-TileColor" content="#df3e39" />
     <meta
       name="msapplication-config"
-      content="images/browserconfig.xml?v=GvvwO0J8L"
+      content="%sveltekit.assets%/images/browserconfig.xml?v=GvvwO0J8L"
     />
     <meta name="theme-color" content="#df3e39" />
-
-    <link rel="stylesheet" href="/build/bundle.css" />
 
     <script>
       // Frame Buster
@@ -81,13 +85,13 @@
       }
     </script>
 
-    <script defer src="/build/bundle.js"></script>
+    %sveltekit.head%
   </head>
 
-  <!-- Background pattern from Toptal Subtle Patterns -->
   <body
+    data-sveltekit-preload-data="hover"
     class="bg-red-800 text-white py-16"
-    style="background-image: url('/images/worn-dots.png');"
+    style="background-image: url('/images/worn-dots.png')"
   >
     <div class="container">
       <main class="mb-16">
@@ -111,7 +115,7 @@
           using pure CSS, without JavaScript.
         </p>
 
-        <div id="app"></div>
+        <div style="display: contents">%sveltekit.body%</div>
 
         <hr class="mb-16 border-red-900" />
 
@@ -239,7 +243,7 @@
           <thead class="font-bold">
             <tr>
               <td class="p-2">Option</td>
-              <td class="p-2" style="min-width: 300px;">Description</td>
+              <td class="p-2" style="min-width: 300px">Description</td>
               <td class="p-2">Type</td>
               <td class="p-2">Required?</td>
               <td class="p-2">Default</td>
@@ -319,21 +323,26 @@
         <ul class="list-inside list-decimal">
           <li>
             <span class="font-title">Bowlby One SC</span> font by
-            <a href="https://github.com/vernnobile" class="underline">
-              Vernon Adams
-            </a>
+            <a href="https://github.com/vernnobile" class="underline"
+              >Vernon Adams</a
+            >.
           </li>
           <li>
             Website styled with
-            <a href="https://tailwindcss.com/" class="underline">
-              Tailwind CSS
-            </a>
+            <a href="https://tailwindcss.com/" class="underline">Tailwind CSS</a
+            >.
           </li>
           <li>
             <span class="font-title">Wait!</span> generator built using
-            <a href="https://svelte.dev/" class="underline">
-              Svelte
-            </a>
+            <a href="https://svelte.dev/" class="underline">Svelte</a>.
+          </li>
+          <li>
+            Background pattern from
+            <a
+              href="https://www.toptal.com/designers/subtlepatterns/"
+              class="underline"
+              >Toptal Subtle Patterns</a
+            >.
           </li>
         </ul>
       </footer>
