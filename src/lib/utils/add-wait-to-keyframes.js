@@ -22,7 +22,7 @@ export function addWaitToKeyframes(keyframes, duration, waitTime) {
       // Remove empty array items
       .filter(Boolean)
       // Remove all whitespace from frame, including line breaks
-      .map((s) => s.replace(/\s/gu, ''))
+      .map((s) => s.replaceAll(/\s/gu, ''))
       // Put closing frame bracket back
       .map((s) => `${s}}`)
       // Split frame percentage and properties
@@ -31,6 +31,7 @@ export function addWaitToKeyframes(keyframes, duration, waitTime) {
         const frameValue = s.split('{')[0].trim().replace('%', '')
         // Parse to numeric
         let frame = Number(frameValue)
+
         if (frameValue === 'from') {
           frame = 0
         } else if (frameValue === 'to') {
@@ -56,7 +57,7 @@ export function addWaitToKeyframes(keyframes, duration, waitTime) {
         // Extend last frame to end to simulate the wait time
         {
           frame: 100,
-          properties: asArray[asArray.length - 1].properties,
+          properties: asArray.at(-1)?.properties,
         },
       ]
         // Turn back into string
@@ -67,9 +68,10 @@ export function addWaitToKeyframes(keyframes, duration, waitTime) {
             // Add lines breaks between properties and indent
             .join(';\n    ')
             // Add space between property name and value
-            .replace(/:/gu, ': ')
+            .replaceAll(':', ': ')
             // Remove line break added from the join
             .trim()
+
           return `  ${f.frame}% {\n    ${parsedProperties}\n  }`
         })
         // Add line break between frames
