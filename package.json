@@ -10,7 +10,7 @@
     "dev": "vite dev",
     "format": "prettier --write .",
     "lint": "eslint .",
-    "prepare": "husky install",
+    "prepare": "husky",
     "preview": "vite preview"
   },
   "lint-staged": {
@@ -34,7 +34,7 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^8.52.0",
     "eslint-plugin-svelte": "^2.46.0",
-    "husky": "^8.0.3",
+    "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "postcss": "^8.4.47",
     "prettier": "^3.3.3",
