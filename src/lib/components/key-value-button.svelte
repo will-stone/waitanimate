@@ -1,6 +1,12 @@
 <script>
-  export let key = ''
-  export let value = ''
+  /**
+   * @typedef {Object} Props
+   * @property {string} [key]
+   * @property {string} [value]
+   */
+
+  /** @type {Props} */
+  let { key = $bindable(''), value = '' } = $props();
 
   function handleClick() {
     key = value
@@ -9,7 +15,7 @@
 
 <button
   type="button"
-  on:click={handleClick}
+  onclick={handleClick}
   class:bg-black={key !== value}
   class:bg-yellow-400={key === value}
   class:text-white={key !== value}

@@ -1,7 +1,13 @@
 <script>
-  export let value = '0'
-  export let direction = 'up'
-  export let isPositiveOnly = false
+  /**
+   * @typedef {Object} Props
+   * @property {string} [value]
+   * @property {string} [direction]
+   * @property {boolean} [isPositiveOnly]
+   */
+
+  /** @type {Props} */
+  let { value = $bindable('0'), direction = 'up', isPositiveOnly = false } = $props();
 
   function handleClick() {
     if (direction === 'up') {
@@ -19,7 +25,7 @@
 
 <button
   type="button"
-  on:click={handleClick}
+  onclick={handleClick}
   class="flex-shrink-0 border-4 border-black w-12 h-12 text-3xl flex
   items-center justify-center font-bold bg-black text-white hover:bg-red-900"
   style="line-height: 0;"

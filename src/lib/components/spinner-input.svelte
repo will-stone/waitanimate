@@ -2,8 +2,14 @@
   import InputBox from './input-box.svelte'
   import SpinnerInputButton from './spinner-input-button.svelte'
 
-  export let value = '0'
-  export let isPositiveOnly = false
+  /**
+   * @typedef {Object} Props
+   * @property {string} [value]
+   * @property {boolean} [isPositiveOnly]
+   */
+
+  /** @type {Props} */
+  let { value = $bindable('0'), isPositiveOnly = false } = $props();
 </script>
 
 <div class="flex">
