@@ -30,7 +30,7 @@
     "@sveltejs/adapter-static": "^2.0.3",
     "@sveltejs/kit": "^1.26.0",
     "@will-stone/eslint-config": "^0.8.0",
-    "@will-stone/prettier-config": "^7.0.1",
+    "@will-stone/prettier-config": "^8.0.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.52.0",
     "eslint-plugin-svelte": "^2.46.0",
